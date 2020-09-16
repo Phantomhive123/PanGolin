@@ -25,6 +25,7 @@ public class BasicElement : MonoBehaviour
     protected float velocityJudgement = 0.01f;
 
     protected bool isLocked = false;
+    protected bool wasStaticLastFrame = true;
 
     // Start is called before the first frame update
     void Start()
@@ -39,21 +40,43 @@ public class BasicElement : MonoBehaviour
         
     }
 
+    private void LateUpdate()
+    {
+        //每一帧更新一个标志位，记录这一帧物体有没有移动
+        wasStaticLastFrame = rigidbody.velocity.magnitude < velocityJudgement;
+    }
+
     public static void Combine(BasicElement itemA, BasicElement itemB)
     {
         if (itemA.isLocked || itemB.isLocked) return;
-        //itemA速度大于零的可能性更高
+
+        if (itemA.wasStaticLastFrame && itemB.wasStaticLastFrame)
+            return;
+        if (!itemA.wasStaticLastFrame && !itemB.wasStaticLastFrame)
+            return;//DoSomething
+
+        if (itemA.wasStaticLastFrame) 
+        {
+            itemA.BeHit(itemB);
+            itemB.Hit(itemA);
+        }
+        else
+        {
+            itemA.Hit(itemB);
+            itemB.BeHit(itemA);
+        }
+
+
+        /*
         float velocityA = itemA.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude;
         float velocityB = itemA.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude;
         BasicElement beHitObj = velocityA >= velocityB ? itemA : itemB;
         BasicElement movingObj = velocityA < velocityB ? itemA : itemB;
-        beHitObj.BeHit(movingObj);
-        movingObj.Hit(beHitObj);      
+        */
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("enter");
         BasicElement basicElement = collision.gameObject.GetComponent<BasicElement>();
         if (!basicElement) return;
         Combine(this, basicElement);

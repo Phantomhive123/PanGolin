@@ -16,8 +16,6 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //rigid.velocity = Vector2.right * speed;
-        if(rigid.velocity.y <= 0.01f)
-            transform.Translate(Vector2.right * speed * Time.deltaTime, Space.World);
+        rigid.velocity = Vector2.right * speed;//这样物体没有重力了。
     }
 }
