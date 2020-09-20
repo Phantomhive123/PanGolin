@@ -12,10 +12,16 @@ public enum ElementType
     earth
 }
 
+public delegate void PlayerEvenetDelegate();
 
 [RequireComponent(typeof(BoxCollider2D),typeof(Rigidbody2D))]
 public class BasicElement : MonoBehaviour
 {
+    private BoxColliderRaycastOrigins raycastOrigins;
+    private float skinWidth = 0.001f;
+    private float rayDistance = 0.05f;
+    private bool isGrounded = false;
+
     protected BoxCollider2D boxCollider;
     new protected Rigidbody2D rigidbody;
 
@@ -24,8 +30,9 @@ public class BasicElement : MonoBehaviour
     [SerializeField]
     protected float velocityJudgement = 0.01f;
 
-    protected bool isLocked = false;
     protected bool wasStaticLastFrame = true;
+
+    public PlayerEvenetDelegate eventDelegate;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +44,7 @@ public class BasicElement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckIfGrounded();
     }
 
     private void LateUpdate()
@@ -46,49 +53,75 @@ public class BasicElement : MonoBehaviour
         wasStaticLastFrame = rigidbody.velocity.magnitude < velocityJudgement;
     }
 
-    public static void Combine(BasicElement itemA, BasicElement itemB)
+    public void Combine(BasicElement anotherItemB)
     {
-        if (itemA.isLocked || itemB.isLocked) return;
-
-        if (itemA.wasStaticLastFrame && itemB.wasStaticLastFrame)
+        if (wasStaticLastFrame && anotherItemB.wasStaticLastFrame)
             return;
-        if (!itemA.wasStaticLastFrame && !itemB.wasStaticLastFrame)
-            return;//DoSomething
-
-        if (itemA.wasStaticLastFrame) 
+        if (!wasStaticLastFrame && !anotherItemB.wasStaticLastFrame)
         {
-            itemA.BeHit(itemB);
-            itemB.Hit(itemA);
+            Debug.Log("两个都在动！");
+            return;
         }
+
+        eventDelegate?.Invoke();
+
+        if (wasStaticLastFrame)
+            BeHit(anotherItemB);
         else
-        {
-            itemA.Hit(itemB);
-            itemB.BeHit(itemA);
-        }
-
-
-        /*
-        float velocityA = itemA.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude;
-        float velocityB = itemA.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude;
-        BasicElement beHitObj = velocityA >= velocityB ? itemA : itemB;
-        BasicElement movingObj = velocityA < velocityB ? itemA : itemB;
-        */
+            Hit(anotherItemB);
     }
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         BasicElement basicElement = collision.gameObject.GetComponent<BasicElement>();
         if (!basicElement) return;
-        Combine(this, basicElement);
+        Combine(basicElement);
     }
 
     protected virtual void Hit(BasicElement element)
     {
-        isLocked = true;
+        
     }
 
     protected virtual void BeHit(BasicElement element)
     {
-        isLocked = true;
+        
+    }
+
+
+    private void CheckIfGrounded()
+    {
+        var modifiedBounds = boxCollider.bounds;
+        modifiedBounds.Expand(-3 * skinWidth);
+        raycastOrigins.topLeft = new Vector2(modifiedBounds.min.x, modifiedBounds.max.y);
+        raycastOrigins.topRight = new Vector2(modifiedBounds.max.x, modifiedBounds.max.y);
+        raycastOrigins.bottomLeft = new Vector2(modifiedBounds.min.x, modifiedBounds.min.y);
+        raycastOrigins.bottomRight = new Vector2(modifiedBounds.max.x, modifiedBounds.min.y);
+
+        bool wasGroundLastFrame = isGrounded;
+
+        isGrounded = RaycastCheck(raycastOrigins.bottomLeft, Vector2.down)
+            || RaycastCheck(raycastOrigins.bottomRight, Vector2.down);
+
+        if (wasGroundLastFrame && !isGrounded)
+        {
+            eventDelegate?.Invoke();
+            rigidbody.velocity = Vector2.zero;
+        }
+    }
+
+    private bool RaycastCheck(Vector2 oringin, Vector2 dir)
+    {
+        RaycastHit2D[] raycastHits;
+        Debug.DrawRay(oringin, dir * rayDistance, Color.red);
+        raycastHits = Physics2D.RaycastAll(oringin, dir, rayDistance);
+        foreach (RaycastHit2D raycastHit in raycastHits)
+        {
+            if (raycastHit.collider.gameObject != gameObject)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

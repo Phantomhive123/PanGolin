@@ -9,7 +9,7 @@ public class Fire : BasicElement
         base.Hit(element);//火是可以掉下来的，所以有可能火撞到别的东西
         switch (element.elementType)
         {
-            case ElementType.wood: Disappear(); return;
+            //case ElementType.wood: Disappear(); return;
             case ElementType.fire: Disappear();return;
             default: return;
         }
@@ -29,5 +29,27 @@ public class Fire : BasicElement
     private void Disappear()
     {
         Destroy(gameObject);
+    }
+
+    private void WaitForDisappear()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+        //这样以来有可能重复触发
+        Wood wood = collision.gameObject.GetComponent<Wood>();
+        if (wood)
+        {
+            rigidbody.bodyType = RigidbodyType2D.Static;
+            WaitForDisappear();
+            wood.DelayBurn();
+            return;
+        }
+
+        if (collision.gameObject.GetComponent<PlayerMovement>())
+            GameManager.Instance.GameOver();
     }
 }

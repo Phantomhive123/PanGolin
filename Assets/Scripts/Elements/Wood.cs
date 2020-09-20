@@ -12,7 +12,7 @@ public class Wood : BasicElement
         {
             case ElementType.wood: Disappear();return;
             case ElementType.stone: Disappear();return;
-            case ElementType.fire: Disappear(); return;
+            //case ElementType.fire: Disappear(); return;
             case ElementType.magnet:Disappear();return;
             default:return;
         }
@@ -25,7 +25,7 @@ public class Wood : BasicElement
         {
             case ElementType.wood: Burn(); return;
             case ElementType.stone: return; //草被石头撞？
-            case ElementType.fire: Burn(); return;
+            //case ElementType.fire: Burn(); return;
             case ElementType.magnet: Disappear(); return;
             default: return;
         }
@@ -42,5 +42,16 @@ public class Wood : BasicElement
         obj = Instantiate(obj, transform.parent);
         obj.transform.position = transform.position;
         Destroy(gameObject);
+    }
+
+    public void DelayBurn()
+    {
+        StartCoroutine(WaitForBurn());
+    }
+
+    IEnumerator WaitForBurn()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Burn();
     }
 }

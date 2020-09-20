@@ -40,7 +40,7 @@ public class Stone : BasicElement
 
     private void FallDown()
     {
-
+        Debug.Log("fall down!");
     }
 
     private void BeMagnet()
