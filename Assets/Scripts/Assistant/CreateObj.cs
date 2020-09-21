@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿#if UNITY_ANDROID && !UNITY_EDITOR
+#define ANDROID
+#endif
+
+#if UNITY_IPHONE && !UNITY_EDITOR
+#define IPHONE
+#endif
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,21 +28,36 @@ public class CreateObj : MonoBehaviour
             Vector3 Pos = Input.mousePosition;
             previews[currentIndex].GetComponent<RectTransform>().position = Pos;
         }
-        
-        //注意移动端判断方法
-        if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+
+        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            if (currentIndex != -1 && currentIndex < previews.Length)
+#if IPHONE || ANDROID
+			if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+#else
+            if (EventSystem.current.IsPointerOverGameObject())
+#endif
             {
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                worldPos.z = 0;
-                Instantiate(objs[currentIndex], worldPos, Quaternion.identity);
+                return;
+            }
+            else
+            {
+                if (currentIndex != -1 && currentIndex < previews.Length)
+                {
+                    Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    worldPos.z = 0;
+                    Instantiate(objs[currentIndex], worldPos, Quaternion.identity);
+                }
             }
         }
     }
 
     public void SetCurrentIndex(int index)
     {
+#if IPHONE || ANDROID
+		currentIndex = index;
+        return;
+#endif
+
         if (currentIndex != -1) 
             previews[currentIndex].SetActive(false);
         currentIndex = index;
