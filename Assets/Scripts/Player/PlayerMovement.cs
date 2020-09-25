@@ -15,7 +15,7 @@ public struct BoxColliderRaycastOrigins
 public class PlayerMovement : MonoBehaviour
 {
     private BoxColliderRaycastOrigins raycastOrigins;
-    private float skinWidth = 0.001f;
+    private float skinWidth = 0.0001f;
     private float rayDistance = 0.05f;
     private bool isGrounded = false;
     private BoxCollider2D boxCollider;
