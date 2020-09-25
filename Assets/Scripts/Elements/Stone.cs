@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stone : BasicElement
 {
+    /*
     // Start is called before the first frame update
     protected override void Hit(BasicElement element)
     {
@@ -49,5 +50,5 @@ public class Stone : BasicElement
         obj = Instantiate(obj, transform.parent);
         obj.transform.position = transform.position;
         Destroy(gameObject);
-    }
+    }*/
 }

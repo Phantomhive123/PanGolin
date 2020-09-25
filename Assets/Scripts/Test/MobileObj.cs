@@ -42,12 +42,6 @@ public abstract class MobileObj : MonoBehaviour
         transform = GetComponent<Transform>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     protected virtual void Update()
     {

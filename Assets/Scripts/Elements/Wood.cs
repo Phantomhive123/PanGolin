@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Wood : BasicElement
 {
+    /*
     // Start is called before the first frame update
     protected override void Hit(BasicElement element)
     {
@@ -54,4 +55,5 @@ public class Wood : BasicElement
         yield return new WaitForSeconds(0.5f);
         Burn();
     }
+    */
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Magnet : BasicElement
 {
+    /*
     private Stone aimStone;
 
     private float moveSpeed = 10f;
@@ -69,4 +70,5 @@ public class Magnet : BasicElement
             }
         }
     }
+    */
 }

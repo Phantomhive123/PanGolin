@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Fire : BasicElement
 {
+    public override void Hit(MobileObj another)
+    {
+        base.Hit(another);
+        switch(another.ele)
+    }
+
+    public override void BeHit(MobileObj another)
+    {
+        base.BeHit(another);
+    }
+
+    /*
     protected override void Hit(BasicElement element)
     {
         base.Hit(element);//火是可以掉下来的，所以有可能火撞到别的东西
@@ -51,5 +63,5 @@ public class Fire : BasicElement
 
         if (collision.gameObject.GetComponent<PlayerMovement>())
             GameManager.Instance.GameOver();
-    }
+    }*/
 }
