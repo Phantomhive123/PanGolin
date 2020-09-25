@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Security.Cryptography;
 
 public struct BoxColliderRaycastOrigins
 {
@@ -36,12 +37,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
+    }
+
+    private void FixedUpdate()
+    {
         CheckIfGrounded();
         if (!isGrounded)
         {
-            rigid.velocity = speed * Vector2.down;
+            //rigid.velocity = speed * Vector2.down;
+            rigid.velocity = Vector2.zero;
+            transform.Translate(Vector2.down * speed * Time.fixedDeltaTime);
         }
-        else if(!pause)
+        else if (!pause)
         {
             rigid.velocity = speed * dir;
         }
