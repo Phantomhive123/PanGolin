@@ -4,44 +4,40 @@ using UnityEngine;
 
 public class Stone : BasicElement
 {
-    /*
-    // Start is called before the first frame update
-    protected override void Hit(BasicElement element)
+    private void Start()
     {
-        base.Hit(element);
-        switch (element.elementType)
-        {
-            case ElementType.stone: Disappear(); return;
-            case ElementType.magnet: Disappear(); return;
-            default: HitOtherObj(); return;
-        }
+        elementType = ElementType.stone;
     }
 
-    protected override void BeHit(BasicElement element)
+    public override void Hit(BasicElement another)
     {
-        base.BeHit(element);
-        switch (element.elementType)
+        base.Hit(another);
+        switch (another.elementType)
         {
-            case ElementType.wood: FallDown();return;
-            case ElementType.stone: BeMagnet(); return;
+            case ElementType.wood: return;
+            case ElementType.stone: Disappear(); return;
+            case ElementType.fire: return;
             case ElementType.magnet: Disappear(); return;
             default: return;
         }
     }
 
-    private void HitOtherObj()
+    public override void BeHit(BasicElement another)
     {
-        Debug.Log("Stop for a moment!");
+        base.BeHit(another);
+        switch (another.elementType)
+        {
+            case ElementType.wood: return;
+            case ElementType.stone: BeMagnet(); return;
+            case ElementType.fire: return;
+            case ElementType.magnet: Disappear(); return;
+            default: return;
+        }
     }
 
     private void Disappear()
     {
         Destroy(gameObject);
-    }
-
-    private void FallDown()
-    {
-        Debug.Log("fall down!");
     }
 
     private void BeMagnet()
@@ -50,5 +46,5 @@ public class Stone : BasicElement
         obj = Instantiate(obj, transform.parent);
         obj.transform.position = transform.position;
         Destroy(gameObject);
-    }*/
+    }
 }

@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class Wood : BasicElement
 {
-    /*
-    // Start is called before the first frame update
-    protected override void Hit(BasicElement element)
+    [SerializeField]
+    private float BurnDelayTime = 0.5f;
+
+    private void Start()
     {
-        base.Hit(element);
-        switch(element.elementType)
-        {
-            case ElementType.wood: Disappear();return;
-            case ElementType.stone: Disappear();return;
-            //case ElementType.fire: Disappear(); return;
-            case ElementType.magnet:Disappear();return;
-            default:return;
-        }
+        elementType = ElementType.wood;
     }
 
-    protected override void BeHit(BasicElement element)
+    public override void Hit(BasicElement another)
     {
-        base.BeHit(element);
-        switch (element.elementType)
+        base.Hit(another);
+        switch (another.elementType)
         {
-            case ElementType.wood: Burn(); return;
-            case ElementType.stone: return; //草被石头撞？
-            //case ElementType.fire: Burn(); return;
+            case ElementType.wood: Disappear(); return;
+            case ElementType.stone: Disappear(); return;
+            case ElementType.fire: return;
             case ElementType.magnet: Disappear(); return;
             default: return;
         }
     }
 
+    public override void BeHit(BasicElement another)
+    {
+        base.BeHit(another);
+        switch (another.elementType)
+        {
+            case ElementType.wood: Burn(); return;
+            case ElementType.stone: Disappear(); return;
+            case ElementType.fire: return;
+            case ElementType.magnet: Disappear(); return;
+            default: return;
+        }
+    }
     private void Disappear()
     {
         Destroy(gameObject);
@@ -39,9 +44,11 @@ public class Wood : BasicElement
 
     private void Burn()
     {
+        //应该播放动画哦
         GameObject obj = Resources.Load<GameObject>("Fire");
         obj = Instantiate(obj, transform.parent);
         obj.transform.position = transform.position;
+        //传递combo
         Destroy(gameObject);
     }
 
@@ -52,8 +59,7 @@ public class Wood : BasicElement
 
     IEnumerator WaitForBurn()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(BurnDelayTime);
         Burn();
     }
-    */
 }

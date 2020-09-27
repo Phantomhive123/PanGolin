@@ -171,7 +171,7 @@ public class BoxObj : MobileObj
         RaycastHit2D[] raycastHits = Physics2D.RaycastAll(ray, direction, distance);
         foreach (RaycastHit2D raycastHit in raycastHits)
         {
-            if (raycastHit.collider.gameObject != gameObject)
+            if (raycastHit.collider.gameObject != gameObject && !raycastHit.collider.isTrigger)
             {
                 return raycastHit;
             }

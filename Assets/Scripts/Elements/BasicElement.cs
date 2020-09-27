@@ -21,13 +21,7 @@ public class BasicElement : BoxObj
         set { _comboNum = value; }
     }
 
-    public ElementType element;
-
-    public void Start()
-    {
-        if(this is Fire)
-
-    }
+    public ElementType elementType;
 
     /*
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -56,7 +50,8 @@ public class BasicElement : BoxObj
     {
         base.Hit(another);
         if (ComboNum < 0) return;
-        Debug.Log("Hit:" + gameObject.name);
+        if (another is BasicElement)
+            Hit((BasicElement)another);
     }
 
     public override void BeHit(MobileObj another)
@@ -64,6 +59,16 @@ public class BasicElement : BoxObj
         base.BeHit(another);
         BasicElement be = another.GetComponent<BasicElement>();
         if (!be || be.ComboNum < 0) return;
-        Debug.Log("BeHit:" + gameObject.name);
+        BeHit(be);
+    }
+
+    public virtual void Hit(BasicElement another)
+    {
+        
+    }
+
+    public virtual void BeHit(BasicElement another)
+    {
+        
     }
 }

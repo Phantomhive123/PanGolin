@@ -117,7 +117,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846608770323701885}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -142,5 +142,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2736cff689eeab44c8c72b1b10d0b5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityModifier: 5
+  moveThreshold: 0.005
+  targetVelocity: {x: 0, y: 0}
+  velocity: {x: 0, y: 0}
+  totalHorizontalRays: 3
+  totalVerticalRays: 3
+  skinWidth: 0.01
+  _comboNum: -1
   elementType: 3
-  velocityJudgement: 0.01

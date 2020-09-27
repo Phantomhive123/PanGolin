@@ -4,37 +4,38 @@ using UnityEngine;
 
 public class Fire : BasicElement
 {
-    public override void Hit(MobileObj another)
+    [SerializeField]
+    private float BurnDelayTime = 0.5f;
+
+    private void Start()
+    {
+        elementType = ElementType.fire;
+    }
+
+ 
+    public override void Hit(BasicElement another)
     {
         base.Hit(another);
-        switch(another.ele)
-    }
-
-    public override void BeHit(MobileObj another)
-    {
-        base.BeHit(another);
-    }
-
-    /*
-    protected override void Hit(BasicElement element)
-    {
-        base.Hit(element);//火是可以掉下来的，所以有可能火撞到别的东西
-        switch (element.elementType)
+        switch(another.elementType)
         {
-            //case ElementType.wood: Disappear(); return;
-            case ElementType.fire: Disappear();return;
-            default: return;
+            case ElementType.wood:return;
+            case ElementType.stone: Disappear(); return;
+            case ElementType.fire: Disappear(); return;
+            case ElementType.magnet: Disappear(); return;
+            default:return;
         }
     }
 
-    protected override void BeHit(BasicElement element)
+    public override void BeHit(BasicElement another)
     {
-        base.BeHit(element);
-        switch (element.elementType)
+        base.BeHit(another);
+        switch (another.elementType)
         {
+            case ElementType.wood: return;
             case ElementType.stone: Disappear(); return;
-            case ElementType.magnet: Disappear(); return;
-            default: return;//草撞火是草消失，火不变，火撞草是火消失，草变火?
+            case ElementType.fire: return;
+            case ElementType.magnet: BeStone(); return;
+            default: return;
         }
     }
 
@@ -43,25 +44,16 @@ public class Fire : BasicElement
         Destroy(gameObject);
     }
 
-    private void WaitForDisappear()
+    public void WaitForDisappear()
     {
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, BurnDelayTime);
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    private void BeStone()
     {
-        base.OnCollisionEnter2D(collision);
-        //这样以来有可能重复触发
-        Wood wood = collision.gameObject.GetComponent<Wood>();
-        if (wood)
-        {
-            rigidbody.bodyType = RigidbodyType2D.Static;
-            WaitForDisappear();
-            wood.DelayBurn();
-            return;
-        }
-
-        if (collision.gameObject.GetComponent<PlayerMovement>())
-            GameManager.Instance.GameOver();
-    }*/
+        GameObject obj = Resources.Load<GameObject>("Stone");
+        obj = Instantiate(obj, transform.parent);
+        obj.transform.position = transform.position;
+        Destroy(gameObject);
+    }
 }
