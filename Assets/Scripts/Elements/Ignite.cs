@@ -12,9 +12,9 @@ public class Ignite : MonoBehaviour
         if (wood)
         {
             Fire f = GetComponentInParent<Fire>();
-            f.WaitForDisappear();
+            f.WaitForDisappear(wood);
             wood.DelayBurn();
             return;
-        }
+        }//碰撞到角色触发死亡
     }
 }

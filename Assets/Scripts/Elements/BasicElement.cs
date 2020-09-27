@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void PlayerEvenetDelegate();
+
 public enum ElementType
 {
     empty,
@@ -23,28 +25,23 @@ public class BasicElement : BoxObj
 
     public ElementType elementType;
 
-    /*
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("hit!");
-        BasicElement basicElement = collision.gameObject.GetComponent<BasicElement>();
-        if (!basicElement) return;
-        Combine(basicElement);
-    }
+    public PlayerEvenetDelegate StopDelegate;
+    public PlayerEvenetDelegate ContinueDelegate;
 
-    private void Combine(BasicElement element)
+    protected override void LateUpdate()
     {
-        if (ComboNum < 0 && element.ComboNum < 0)
-            return;
-        if (ComboNum >= 0 && element.ComboNum >= 0)
-            return;
-
-        if (ComboNum > 0)
-            Hit(element);
-        else
-            BeHit(element);
+        base.LateUpdate();
+        if (collisionState.wasGroundLastFrame && !isGrounded)
+        {
+            CallStopDeletage();
+        }
+        if (collisionState.becameGroundedThisFrame)
+        {
+            CallContinueDelegate();
+            //改combonum
+            ComboNum = -1;
+        }
     }
-    */
 
     public override void Hit(MobileObj another)
     {
@@ -64,11 +61,24 @@ public class BasicElement : BoxObj
 
     public virtual void Hit(BasicElement another)
     {
-        
+        CallStopDeletage();
+        CallContinueDelegate();
     }
 
     public virtual void BeHit(BasicElement another)
     {
         
+    }
+
+    protected void CallStopDeletage()
+    {
+        StopDelegate?.Invoke();
+        StopDelegate = null;
+    }
+
+    protected void CallContinueDelegate()
+    {
+        ContinueDelegate?.Invoke();
+        ContinueDelegate = null;
     }
 }

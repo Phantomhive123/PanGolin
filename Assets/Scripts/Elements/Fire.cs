@@ -44,9 +44,9 @@ public class Fire : BasicElement
         Destroy(gameObject);
     }
 
-    public void WaitForDisappear()
+    public void WaitForDisappear(Wood wood)
     {
-        Destroy(gameObject, BurnDelayTime);
+        StartCoroutine(DelayDisappear(wood));
     }
 
     private void BeStone()
@@ -55,5 +55,12 @@ public class Fire : BasicElement
         obj = Instantiate(obj, transform.parent);
         obj.transform.position = transform.position;
         Destroy(gameObject);
+    }
+
+    IEnumerator DelayDisappear(Wood wood)
+    {
+        yield return new WaitForSeconds(BurnDelayTime);
+        if (wood)
+            Disappear();
     }
 }

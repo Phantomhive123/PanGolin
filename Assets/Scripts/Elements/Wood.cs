@@ -17,10 +17,10 @@ public class Wood : BasicElement
         base.Hit(another);
         switch (another.elementType)
         {
-            case ElementType.wood: Disappear(); return;
-            case ElementType.stone: Disappear(); return;
-            case ElementType.fire: return;
-            case ElementType.magnet: Disappear(); return;
+            case ElementType.wood: Disappear(); return; //？
+            case ElementType.stone: CallContinueDelegate(); Disappear(); return;
+            case ElementType.fire: Disappear(); return;
+            case ElementType.magnet: CallContinueDelegate(); Disappear(); return;
             default: return;
         }
     }
