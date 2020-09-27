@@ -24,8 +24,7 @@ public class CollisionState2D
 
 public abstract class MobileObj : MonoBehaviour
 {
-    [SerializeField]
-    protected float gravityModifier = 5f;
+    public float gravityModifier = 5f;
     [SerializeField]
     protected float moveThreshold = 0.005f;
 

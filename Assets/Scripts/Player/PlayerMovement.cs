@@ -18,6 +18,7 @@ public class PlayerMovement : BoxObj
     private void Start()
     {
         currentSpeed = moveSpeed;
+        ComboManager.Instance.ContinueDelegate += ContinueMove;
     }
 
     protected override void Update()
@@ -43,12 +44,10 @@ public class PlayerMovement : BoxObj
         else
         {
             bePushedObj = bs;
-            if (bs.ComboNum < 0)
-                bs.ComboNum = 0;
+            bePushedObj.isInteracted = true;
             currentSpeed = pushSpeed;
             //挂载委托
             bs.StopDelegate += StopMove;
-            bs.ContinueDelegate += ContinueMove;
         }
     }
 

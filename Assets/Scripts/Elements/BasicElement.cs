@@ -15,18 +15,11 @@ public enum ElementType
 
 public class BasicElement : BoxObj
 {
-    [SerializeField]
-    private int _comboNum = -1;
-    public int ComboNum
-    {
-        get { return _comboNum; }
-        set { _comboNum = value; }
-    }
+    public bool isInteracted = false;
 
     public ElementType elementType;
 
     public PlayerEvenetDelegate StopDelegate;
-    public PlayerEvenetDelegate ContinueDelegate;
 
     protected override void LateUpdate()
     {
@@ -37,16 +30,18 @@ public class BasicElement : BoxObj
         }
         if (collisionState.becameGroundedThisFrame)
         {
-            CallContinueDelegate();
-            //改combonum
-            ComboNum = -1;
+            if (isInteracted && ComboManager.Instance.ComboIndex == 0)
+            {
+                ComboManager.Instance.ContinueDelegate();
+            }
+            isInteracted = false;
         }
     }
 
     public override void Hit(MobileObj another)
     {
         base.Hit(another);
-        if (ComboNum < 0) return;
+        if (!isInteracted) return;
         if (another is BasicElement)
             Hit((BasicElement)another);
     }
@@ -55,14 +50,15 @@ public class BasicElement : BoxObj
     {
         base.BeHit(another);
         BasicElement be = another.GetComponent<BasicElement>();
-        if (!be || be.ComboNum < 0) return;
+        if (!be || !be.isInteracted) return;
         BeHit(be);
     }
 
     public virtual void Hit(BasicElement another)
     {
         CallStopDeletage();
-        CallContinueDelegate();
+        ComboManager.Instance.ComboIndex++;
+        Debug.Log("!!!");
     }
 
     public virtual void BeHit(BasicElement another)
@@ -74,11 +70,5 @@ public class BasicElement : BoxObj
     {
         StopDelegate?.Invoke();
         StopDelegate = null;
-    }
-
-    protected void CallContinueDelegate()
-    {
-        ContinueDelegate?.Invoke();
-        ContinueDelegate = null;
     }
 }

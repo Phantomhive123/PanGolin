@@ -12,6 +12,8 @@ public class Ignite : MonoBehaviour
         if (wood)
         {
             Fire f = GetComponentInParent<Fire>();
+            ComboManager.Instance.ComboIndex++;
+            f.gravityModifier = 0f;
             f.WaitForDisappear(wood);
             wood.DelayBurn();
             return;
