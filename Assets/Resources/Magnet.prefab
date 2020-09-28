@@ -151,4 +151,4 @@ MonoBehaviour:
   skinWidth: 0.01
   isInteracted: 1
   elementType: 3
-  moveSpeed: 5
+  moveSpeed: 20
