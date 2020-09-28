@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4be4abc800d1144a2715a759de5243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityModifier: 5
+  gravityModifier: 10
   moveThreshold: 0.005
   targetVelocity: {x: 0, y: 0}
   velocity: {x: 0, y: 0}

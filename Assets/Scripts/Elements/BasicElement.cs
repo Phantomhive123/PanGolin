@@ -27,7 +27,6 @@ public class BasicElement : BoxObj
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
             CallStopDeletage();
-            //isInteracted = true;
         }
         if (collisionState.becameGroundedThisFrame)
         {
@@ -43,29 +42,32 @@ public class BasicElement : BoxObj
     public override void Hit(MobileObj another)
     {
         base.Hit(another);
-        if (!isInteracted) return;
         if (another is BasicElement)
-            Hit((BasicElement)another);
+        {
+            BasicElement bs = (BasicElement)another;
+            if (!isInteracted && !bs.isInteracted) return;
+            if (this is Wood && another is Fire) return;
+            Hit(bs);
+        }
     }
 
     public override void BeHit(MobileObj another)
     {
         base.BeHit(another);
         BasicElement be = another.GetComponent<BasicElement>();
-        if (!be || !be.isInteracted) return;
+        if (!be || (!be.isInteracted && !isInteracted)) return;
         BeHit(be);
     }
 
     public virtual void Hit(BasicElement another)
     {
         CallStopDeletage();
-        if (this is Wood && another is Fire) return;
         ComboManager.Instance.ComboIndex++;
     }
 
     public virtual void BeHit(BasicElement another)
     {
-        
+        CallStopDeletage();
     }
 
     protected void CallStopDeletage()
