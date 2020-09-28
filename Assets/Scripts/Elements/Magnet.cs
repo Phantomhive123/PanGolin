@@ -47,8 +47,7 @@ public class Magnet : BasicElement
     private void BeStone()
     {
         GameObject obj = Resources.Load<GameObject>("Stone");
-        obj = Instantiate(obj, transform.parent);
-        obj.transform.position = transform.position;
+        Instantiate(obj, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
     }
 
@@ -64,27 +63,25 @@ public class Magnet : BasicElement
             FindNextAim();
 
     }
-
-    private void OnEnable()
-    {
-        FindNextAim();
-    }
         
     private void FindNextAim()
     {
         Stone[] stones = FindObjectsOfType<Stone>();
         foreach (Stone s in stones)
         {
+            Debug.Log(s.name + "  magnitude:" + (s.transform.position - transform.position).magnitude);
             if (aimStone == null)
-                aimStone = s;
-            else
             {
-                if ((s.transform.position - transform.position).magnitude <= (aimStone.transform.position - transform.position).magnitude)
-                {
-                    aimStone = s;
-                }
+                aimStone = s;
+                continue;
+            }
+            
+            if ((s.transform.position - transform.position).magnitude <= (aimStone.transform.position - transform.position).magnitude)
+            {
+                
+                aimStone = s;
             }
         }
+        Debug.Log(aimStone.gameObject.name);
     }
-
 }

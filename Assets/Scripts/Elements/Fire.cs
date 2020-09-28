@@ -52,8 +52,7 @@ public class Fire : BasicElement
     private void BeStone()
     {
         GameObject obj = Resources.Load<GameObject>("Stone");
-        obj = Instantiate(obj, transform.parent);
-        obj.transform.position = transform.position;
+        Instantiate(obj, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
     }
 
