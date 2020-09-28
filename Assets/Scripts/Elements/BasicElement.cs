@@ -27,6 +27,7 @@ public class BasicElement : BoxObj
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
             CallStopDeletage();
+            //isInteracted = true;
         }
         if (collisionState.becameGroundedThisFrame)
         {
