@@ -58,7 +58,7 @@ public class Magnet : BasicElement
         if (aimStone)
         {
             Vector2 dir = aimStone.transform.position - transform.position;
-            targetVelocity += dir * moveSpeed;
+            targetVelocity += dir.normalized * moveSpeed;
         }
         else
             FindNextAim();
