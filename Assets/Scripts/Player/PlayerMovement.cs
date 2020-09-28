@@ -27,9 +27,23 @@ public class PlayerMovement : BoxObj
         if(!pause)  targetVelocity.x += dir.x * currentSpeed;
     }
 
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
+        if (collisionState.wasGroundLastFrame && !isGrounded)
+        {
+            SetTrigger(false);
+        }
+        else if (collisionState.becameGroundedThisFrame)
+        {
+            SetTrigger(true);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!isGrounded) return;
+        if (pause) return;
         if (collision.GetComponent<Ignite>())
         {
             ChangeDirection();
@@ -83,5 +97,15 @@ public class PlayerMovement : BoxObj
     private void ContinueMove()
     {
         pause = false;
+    }
+
+    private void SetTrigger(bool enable)
+    {
+        BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
+        foreach(BoxCollider2D collider in colliders)
+        {
+            if (collider.isTrigger)
+                collider.enabled = enable;
+        }
     }
 }

@@ -34,7 +34,8 @@ public class BasicElement : BoxObj
             {
                 ComboManager.Instance.ContinueDelegate();
             }
-            isInteracted = false;
+            if(this is Wood || this is Stone)
+                isInteracted = false;
         }
     }
 
@@ -57,8 +58,8 @@ public class BasicElement : BoxObj
     public virtual void Hit(BasicElement another)
     {
         CallStopDeletage();
+        if (this is Wood && another is Fire) return;
         ComboManager.Instance.ComboIndex++;
-        Debug.Log("!!!");
     }
 
     public virtual void BeHit(BasicElement another)

@@ -149,8 +149,8 @@ public class BoxObj : MobileObj
 
     private void CalculateDistanceBetweenRays()
     {
-        var colliderHeight = boxCollider.size.y * Mathf.Abs(transform.localScale.y) - (skinWidth);
-        var colliderWidth = boxCollider.size.x * Mathf.Abs(transform.localScale.x) - (skinWidth);
+        var colliderHeight = boxCollider.size.y * Mathf.Abs(transform.localScale.y) - 2*(skinWidth);
+        var colliderWidth = boxCollider.size.x * Mathf.Abs(transform.localScale.x) - 2*(skinWidth);
         _verticalDistanceBetweenRays = colliderHeight / (totalHorizontalRays - 1);
         _horizontalDistanceBetweenRays = colliderWidth / (totalVerticalRays - 1);
     }
