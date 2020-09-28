@@ -1684,11 +1684,6 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5951655507383853308, guid: a2196972e7e68054d82f706642f0837d,
-        type: 3}
-      propertyPath: gravityModifier
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7397047741349028147, guid: a2196972e7e68054d82f706642f0837d,
         type: 3}
       propertyPath: m_Color.r
@@ -1703,6 +1698,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.0037829876
+      objectReference: {fileID: 0}
+    - target: {fileID: 5951655507383853308, guid: a2196972e7e68054d82f706642f0837d,
+        type: 3}
+      propertyPath: gravityModifier
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2196972e7e68054d82f706642f0837d, type: 3}
@@ -18688,7 +18688,7 @@ MonoBehaviour:
   totalVerticalRays: 3
   skinWidth: 0.01
   moveSpeed: 5
-  pushSpeed: 3
+  pushSpeed: 1
   dir: {x: 1, y: 0}
 --- !u!61 &1465300199
 BoxCollider2D:
