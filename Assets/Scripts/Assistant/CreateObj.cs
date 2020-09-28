@@ -6,10 +6,26 @@
 #define IPHONE
 #endif
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+
+[Serializable]
+public struct SaveObject
+{
+    public ElementType ObjType;
+    public float x;
+    public float y;
+    public SaveObject(ElementType pType,Vector3 pPos)
+    {
+        this.ObjType = pType;
+        this.x = pPos.x;
+        this.y = pPos.y;
+    }
+}
 
 public class CreateObj : MonoBehaviour
 {
@@ -17,8 +33,17 @@ public class CreateObj : MonoBehaviour
     private GameObject[] objs;
     [SerializeField]
     private GameObject[] previews;
-
+    private static List<SaveObject> SaveObjectList;
+    private static GameObject[] objsCopy;
+    private static GameObject[] previewsCopy;
     private int currentIndex = -1;
+
+    void Start()
+    {
+        SaveObjectList = new List<SaveObject>();
+        previewsCopy = previews;
+        objsCopy = objs;
+    }
 
     // Update is called once per frame
     void Update()
@@ -45,10 +70,29 @@ public class CreateObj : MonoBehaviour
                 {
                     Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     worldPos.z = 0;
+                    SaveObject PlaceObject = new SaveObject((ElementType)currentIndex, worldPos);
+                    SaveObjectList.Add(PlaceObject);
                     Instantiate(objs[currentIndex], worldPos, Quaternion.identity);
                 }
             }
         }
+    }
+
+    public static void RenderSaveObject(ElementType type, Vector3 pos)
+    {
+        int index = Convert.ToInt32(type);
+        previewsCopy[index].GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(pos);
+        Instantiate(objsCopy[index], pos, Quaternion.identity);
+    }
+
+    public static void ClearSaveInfo()
+    {
+        SaveObjectList.Clear();
+    }
+
+    public static List<SaveObject> GetUserObjects()
+    {
+        return SaveObjectList;
     }
 
     public void SetCurrentIndex(int index)

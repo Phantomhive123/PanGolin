@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ElementType
 {
-    empty,
+    empty = -1,
     wood,
     stone,
     magnet,
