@@ -13,7 +13,7 @@ public class Ignite : MonoBehaviour
         {
             Fire f = GetComponentInParent<Fire>();
             ComboManager.Instance.ComboIndex++;
-            f.gravityModifier = 0f;
+            f.CancelDelayFall();
             f.WaitForDisappear(wood);
             wood.DelayBurn();
             return;

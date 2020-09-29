@@ -50,7 +50,7 @@ public class PlayerMovement : BoxObj
             return;
         }
         BasicElement bs = collision.GetComponent<BasicElement>();
-        if (!bs||bs is Magnet)
+        if (!bs || bs is Magnet || bs is Fire) 
         {
             bePushedObj = null;
             return;
@@ -71,7 +71,7 @@ public class PlayerMovement : BoxObj
             //要不要删除委托？
             bePushedObj = null;
             currentSpeed = moveSpeed;
-        } 
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
