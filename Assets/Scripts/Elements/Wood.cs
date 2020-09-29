@@ -30,7 +30,7 @@ public class Wood : BasicElement
         base.BeHit(another);
         switch (another.elementType)
         {
-            case ElementType.wood: Burn(); return;
+            case ElementType.wood: Burn();Debug.Log(gameObject.name); return;
             case ElementType.stone: Disappear(); return;
             case ElementType.fire: return;
             case ElementType.magnet: Disappear(); return;
@@ -54,6 +54,7 @@ public class Wood : BasicElement
 
     public void DelayBurn()
     {
+        StopAllCoroutines();
         StartCoroutine(WaitForBurn());
     }
 
