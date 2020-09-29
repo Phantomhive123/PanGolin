@@ -8,10 +8,14 @@ public class Fire : BasicElement
     private float BurnDelayTime = 0.5f;
     private float startGravity = 0f;
 
+    private Coroutine delayFall;
+
     private void Start()
     {
         elementType = ElementType.fire;
         startGravity = gravityModifier;
+        gravityModifier = 0;
+        delayFall = StartCoroutine(DelayFall());
     }
 
  
@@ -51,6 +55,11 @@ public class Fire : BasicElement
         StartCoroutine(DelayDisappear(wood));
     }
 
+    public void CancelDelayFall()
+    {
+        StopCoroutine(delayFall);
+    }
+
     private void BeStone()
     {
         GameObject obj = Resources.Load<GameObject>("Stone"); 
@@ -66,5 +75,11 @@ public class Fire : BasicElement
             Disappear();
         else
             gravityModifier = startGravity;
+    }
+
+    IEnumerator DelayFall()
+    {
+        yield return new WaitForSeconds(0.1f);
+        gravityModifier = startGravity;
     }
 }

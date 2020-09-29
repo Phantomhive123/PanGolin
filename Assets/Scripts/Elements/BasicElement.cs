@@ -45,8 +45,8 @@ public class BasicElement : BoxObj
         if (another is BasicElement)
         {
             BasicElement bs = (BasicElement)another;
-            if (!isInteracted && !bs.isInteracted) return;
-            if (this is Wood && another is Fire) return;
+            if (!isInteracted) return;
+            //if (this is Wood && another is Fire) return;
             Hit(bs);
         }
     }
@@ -55,7 +55,7 @@ public class BasicElement : BoxObj
     {
         base.BeHit(another);
         BasicElement be = another.GetComponent<BasicElement>();
-        if (!be || (!be.isInteracted && !isInteracted)) return;
+        if (!be || !be.isInteracted) return;
         BeHit(be);
     }
 

@@ -82,5 +82,6 @@ public class Magnet : BasicElement
                 aimStone = s;
             }
         }
+        isInteracted = (aimStone != null);
     }
 }
