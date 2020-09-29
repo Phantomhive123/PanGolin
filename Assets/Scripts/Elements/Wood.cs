@@ -30,7 +30,7 @@ public class Wood : BasicElement
         base.BeHit(another);
         switch (another.elementType)
         {
-            case ElementType.wood: Burn();Debug.Log(gameObject.name); return;
+            case ElementType.wood: Burn(); return;
             case ElementType.stone: Disappear(); return;
             case ElementType.fire: return;
             case ElementType.magnet: Disappear(); return;
@@ -39,6 +39,7 @@ public class Wood : BasicElement
     }
     private void Disappear()
     {
+        gameObject.SetActive(false);
         Destroy(gameObject);
     }
 
@@ -46,9 +47,8 @@ public class Wood : BasicElement
     {
         //应该播放动画哦
         GameObject obj = Resources.Load<GameObject>("Fire");
-        obj = Instantiate(obj, transform.parent);
-        obj.transform.position = transform.position;
-        //传递combo
+        StopAllCoroutines();
+        InstantiateManager.Instance.CreateGameObj(obj, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
     }
 

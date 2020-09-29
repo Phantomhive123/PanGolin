@@ -1832,6 +1832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4313125739840141880}
   - component: {fileID: 4313125739840141881}
+  - component: {fileID: 3964420104635778910}
   m_Layer: 0
   m_Name: ComboManager
   m_TagString: Untagged
@@ -1863,6 +1864,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce9a02e1a7cefca489591290da20fcdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3964420104635778910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4313125739840141862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98eda565f95b5224891262e668c287ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4313125740092287281

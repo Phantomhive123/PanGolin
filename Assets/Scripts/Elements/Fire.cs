@@ -24,7 +24,7 @@ public class Fire : BasicElement
         base.Hit(another);
         switch(another.elementType)
         {
-            case ElementType.wood:return;
+            case ElementType.wood: return;
             case ElementType.stone: Disappear(); return;
             case ElementType.fire: Disappear(); return;
             case ElementType.magnet: Disappear(); return;
@@ -62,9 +62,8 @@ public class Fire : BasicElement
 
     private void BeStone()
     {
-        GameObject obj = Resources.Load<GameObject>("Stone"); 
-        obj = Instantiate(obj, transform.parent);
-        obj.transform.position = transform.position;
+        GameObject obj = Resources.Load<GameObject>("Stone");
+        InstantiateManager.Instance.CreateGameObj(obj, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
     }
 

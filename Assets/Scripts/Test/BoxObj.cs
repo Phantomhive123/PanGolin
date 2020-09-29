@@ -144,7 +144,8 @@ public class BoxObj : MobileObj
         if (Mathf.Abs(deltaMovement.y) < moveThreshold)
         {
             MoveHorizontally(ref deltaMovement);
-            CheckUpward();
+            if(Mathf.Abs(deltaMovement.x)>moveThreshold)
+                CheckUpward();
         }
         else
             deltaMovement.x = 0;

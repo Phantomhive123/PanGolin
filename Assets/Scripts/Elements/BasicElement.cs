@@ -15,6 +15,7 @@ public enum ElementType
 
 public class BasicElement : BoxObj
 {
+    private float fallThrehold = 0.2f;
     public bool isInteracted = false;
 
     public ElementType elementType;
@@ -26,8 +27,9 @@ public class BasicElement : BoxObj
         base.LateUpdate();
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
-            Debug.Log("Fall");
             CallStopDeletage();
+            //check判断是否激活
+            CheckFalls();
         }
         if (collisionState.becameGroundedThisFrame)
         {
@@ -38,6 +40,15 @@ public class BasicElement : BoxObj
             if(this is Wood || this is Stone)
                 isInteracted = false;
         }
+    }
+
+    private void CheckFalls()
+    {
+        if (isInteracted) return;
+        Vector2 dis = Vector2.down * fallThrehold;
+        MoveVertically(ref dis);
+        if (dis == Vector2.down * fallThrehold)
+            StartCoroutine(DelaySetInteraction());
     }
 
     public override void Hit(MobileObj another)
@@ -64,6 +75,7 @@ public class BasicElement : BoxObj
     {
         CallStopDeletage();
         ComboManager.Instance.ComboIndex++;
+        Debug.Log(gameObject.name + " hit " + another.name);
     }
 
     public virtual void BeHit(BasicElement another)
@@ -75,5 +87,11 @@ public class BasicElement : BoxObj
     {
         StopDelegate?.Invoke();
         //StopDelegate = null;
+    }
+
+    IEnumerator DelaySetInteraction()
+    {
+        yield return new WaitForFixedUpdate();
+        isInteracted = true;
     }
 }
