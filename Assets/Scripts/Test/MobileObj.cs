@@ -9,7 +9,7 @@ public class CollisionState2D
     public bool above;
     public bool below;
     public bool becameGroundedThisFrame;
-    public bool wasGroundLastFrame;
+    public bool wasGroundLastFrame = false;
 
     public bool HasCollision()
     {

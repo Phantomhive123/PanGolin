@@ -148,7 +148,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   totalHorizontalRays: 3
   totalVerticalRays: 3
-  skinWidth: 0.01
+  skinWidth: 0.005
   isInteracted: 1
   elementType: 3
-  moveSpeed: 5
+  moveSpeed: 20

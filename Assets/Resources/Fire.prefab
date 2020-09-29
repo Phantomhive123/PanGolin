@@ -213,13 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4be4abc800d1144a2715a759de5243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityModifier: 5
+  gravityModifier: 20
   moveThreshold: 0.005
   targetVelocity: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
   totalHorizontalRays: 3
   totalVerticalRays: 3
-  skinWidth: 0.01
+  skinWidth: 0.005
   isInteracted: 1
   elementType: 4
   BurnDelayTime: 0.5

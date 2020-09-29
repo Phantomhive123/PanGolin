@@ -6,10 +6,12 @@ public class Fire : BasicElement
 {
     [SerializeField]
     private float BurnDelayTime = 0.5f;
+    private float startGravity = 0f;
 
     private void Start()
     {
         elementType = ElementType.fire;
+        startGravity = gravityModifier;
     }
 
  
@@ -51,7 +53,7 @@ public class Fire : BasicElement
 
     private void BeStone()
     {
-        GameObject obj = Resources.Load<GameObject>("Stone");
+        GameObject obj = Resources.Load<GameObject>("Stone"); 
         obj = Instantiate(obj, transform.parent);
         obj.transform.position = transform.position;
         Destroy(gameObject);
@@ -62,5 +64,7 @@ public class Fire : BasicElement
         yield return new WaitForSeconds(BurnDelayTime);
         if (wood)
             Disappear();
+        else
+            gravityModifier = startGravity;
     }
 }

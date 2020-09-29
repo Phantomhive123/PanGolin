@@ -58,10 +58,9 @@ public class PlayerMovement : BoxObj
         else
         {
             bePushedObj = bs;
-            bePushedObj.isInteracted = true;
-            currentSpeed = pushSpeed;
-            //挂载委托
             bs.StopDelegate += StopMove;
+            bePushedObj.isInteracted = true;
+            currentSpeed = pushSpeed;           
         }
     }
 
@@ -91,12 +90,13 @@ public class PlayerMovement : BoxObj
     private void StopMove()
     {
         pause = true;
-        //播放动画
+        SetTrigger(false);
     }
 
     private void ContinueMove()
     {
         pause = false;
+        SetTrigger(true);
     }
 
     private void SetTrigger(bool enable)
