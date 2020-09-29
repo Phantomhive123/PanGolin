@@ -45,9 +45,8 @@ public class CreateObj : MonoBehaviour
                 if (currentIndex != -1 && currentIndex < previews.Length)
                 {
                     Vector3 screenPos = previews[currentIndex].GetComponent<RectTransform>().position;
-                    //if (!CheckGrid(screenPos)) return;
-
                     Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+                    if (!CheckGrid(worldPos)) return;
                     worldPos.z = 0;
                     Instantiate(objs[currentIndex], worldPos, Quaternion.identity);
                 }
@@ -81,13 +80,12 @@ public class CreateObj : MonoBehaviour
 
     private bool CheckGrid(Vector3 pos)
     {
-        /*
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-        if (hit.collider != null) 
+        RaycastHit2D hit = Physics2D.Raycast( pos, Vector2.zero);
+        if (hit.collider != null)
             return false;
         else
             return true;
-        */
-        return true;
+
+        //return true;
     }
 }
