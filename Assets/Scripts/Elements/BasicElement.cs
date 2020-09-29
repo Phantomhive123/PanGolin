@@ -26,6 +26,7 @@ public class BasicElement : BoxObj
         base.LateUpdate();
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
+            Debug.Log("Fall");
             CallStopDeletage();
         }
         if (collisionState.becameGroundedThisFrame)
@@ -73,6 +74,6 @@ public class BasicElement : BoxObj
     protected void CallStopDeletage()
     {
         StopDelegate?.Invoke();
-        StopDelegate = null;
+        //StopDelegate = null;
     }
 }
