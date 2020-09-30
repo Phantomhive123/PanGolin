@@ -59,6 +59,7 @@ public class BasicElement : BoxObj
             BasicElement bs = (BasicElement)another;
             if (!isInteracted) return;
             //if (this is Wood && another is Fire) return;
+            if (this is Fire && another is Wood) return;
             Hit(bs);
         }
     }
@@ -75,7 +76,6 @@ public class BasicElement : BoxObj
     {
         CallStopDeletage();
         ComboManager.Instance.ComboIndex++;
-        Debug.Log(gameObject.name + " hit " + another.name);
     }
 
     public virtual void BeHit(BasicElement another)
