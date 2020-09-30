@@ -86,5 +86,6 @@ public class Magnet : BasicElement
         }
         isInteracted = (aimStone != null);
         gravityModifier = isInteracted ? 0f : startGravity;
+        transform.GetChild(0).gameObject.SetActive(isInteracted);
     }
 }
