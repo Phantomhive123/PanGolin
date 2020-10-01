@@ -15,6 +15,7 @@ public enum ElementType
 
 public class BasicElement : BoxObj
 {
+    private float fallThrehold = 0.2f;
     public bool isInteracted = false;
 
     public ElementType elementType;
@@ -27,6 +28,8 @@ public class BasicElement : BoxObj
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
             CallStopDeletage();
+            //check判断是否激活
+            CheckFalls();
         }
         if (collisionState.becameGroundedThisFrame)
         {
@@ -39,14 +42,24 @@ public class BasicElement : BoxObj
         }
     }
 
+    private void CheckFalls()
+    {
+        if (isInteracted) return;
+        Vector2 dis = Vector2.down * fallThrehold;
+        MoveVertically(ref dis);
+        if (dis == Vector2.down * fallThrehold)
+            StartCoroutine(DelaySetInteraction());
+    }
+
     public override void Hit(MobileObj another)
     {
         base.Hit(another);
         if (another is BasicElement)
         {
             BasicElement bs = (BasicElement)another;
-            if (!isInteracted && !bs.isInteracted) return;
-            if (this is Wood && another is Fire) return;
+            if (!isInteracted) return;
+            //if (this is Wood && another is Fire) return;
+            if (this is Fire && another is Wood) return;
             Hit(bs);
         }
     }
@@ -55,7 +68,7 @@ public class BasicElement : BoxObj
     {
         base.BeHit(another);
         BasicElement be = another.GetComponent<BasicElement>();
-        if (!be || (!be.isInteracted && !isInteracted)) return;
+        if (!be || !be.isInteracted) return;
         BeHit(be);
     }
 
@@ -73,6 +86,12 @@ public class BasicElement : BoxObj
     protected void CallStopDeletage()
     {
         StopDelegate?.Invoke();
-        StopDelegate = null;
+        //StopDelegate = null;
+    }
+
+    IEnumerator DelaySetInteraction()
+    {
+        yield return new WaitForFixedUpdate();
+        isInteracted = true;
     }
 }

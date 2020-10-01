@@ -7,10 +7,12 @@ public class Magnet : BasicElement
     private Stone aimStone;
     [SerializeField]
     private float moveSpeed = 10f;
+    private float startGravity = 5f;
 
     private void Start()
     {
         elementType = ElementType.magnet;
+        startGravity = gravityModifier;
     }
 
     public override void Hit(BasicElement another)
@@ -82,5 +84,8 @@ public class Magnet : BasicElement
                 aimStone = s;
             }
         }
+        isInteracted = (aimStone != null);
+        gravityModifier = isInteracted ? 0f : startGravity;
+        transform.GetChild(0).gameObject.SetActive(isInteracted);
     }
 }

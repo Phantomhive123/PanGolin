@@ -127,6 +127,12 @@ public class BoxObj : MobileObj
         }
     }
 
+    private void CheckUpward()
+    {
+        Vector2 up = new Vector2(0, 3 * skinWidth);
+        MoveVertically(ref up);
+    }
+
     public override void Move(Vector2 deltaMovement)
     {
         collisionState.wasGroundLastFrame = collisionState.below;
@@ -136,7 +142,11 @@ public class BoxObj : MobileObj
 
         MoveVertically(ref deltaMovement);
         if (Mathf.Abs(deltaMovement.y) < moveThreshold)
+        {
             MoveHorizontally(ref deltaMovement);
+            if(Mathf.Abs(deltaMovement.x)>moveThreshold)
+                CheckUpward();
+        }
         else
             deltaMovement.x = 0;
         transform.Translate(deltaMovement, Space.World);
@@ -177,10 +187,6 @@ public class BoxObj : MobileObj
             }
         }
 
-        if (raycastHits.Length > 2)
-            Debug.LogWarning("射线检测到两个以上物体！");
-
         return new RaycastHit2D();
     }
-
 }

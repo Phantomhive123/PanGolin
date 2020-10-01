@@ -43,8 +43,7 @@ public class Stone : BasicElement
     private void BeMagnet()
     {
         GameObject obj = Resources.Load<GameObject>("Magnet");
-        obj = Instantiate(obj, transform.parent);
-        obj.transform.position = transform.position;
+        InstantiateManager.Instance.CreateGameObj(obj, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
     }
 }

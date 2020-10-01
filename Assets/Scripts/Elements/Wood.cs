@@ -39,6 +39,7 @@ public class Wood : BasicElement
     }
     private void Disappear()
     {
+        gameObject.SetActive(false);
         Destroy(gameObject);
     }
 
@@ -46,14 +47,14 @@ public class Wood : BasicElement
     {
         //应该播放动画哦
         GameObject obj = Resources.Load<GameObject>("Fire");
-        obj = Instantiate(obj, transform.parent);
-        obj.transform.position = transform.position;
-        //传递combo
+        StopAllCoroutines();
+        InstantiateManager.Instance.CreateGameObj(obj, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
     }
 
     public void DelayBurn()
     {
+        StopAllCoroutines();
         StartCoroutine(WaitForBurn());
     }
 
