@@ -13,7 +13,7 @@ public class PlayerMovement : BoxObj
 
     private float currentSpeed;
     private BasicElement bePushedObj = null;
-    private bool pause = false;
+    static public bool pause = false;
 
     private void Start()
     {
