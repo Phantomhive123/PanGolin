@@ -18,7 +18,7 @@ public class ComboManager : MonoBehaviour
         {
             ContinueCombo();
             _comboIndex = value;
-            Debug.Log("Combo:" + ComboIndex);
+            Debug.Log("Combo:" + _comboIndex);
         }
     }
 

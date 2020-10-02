@@ -81,11 +81,6 @@ public class CreateObj : MonoBehaviour
     private bool CheckGrid(Vector3 pos)
     {
         RaycastHit2D hit = Physics2D.Raycast( pos, Vector2.zero);
-        if (hit.collider != null)
-            return false;
-        else
-            return true;
-
-        //return true;
+        return hit.collider == null;
     }
 }
