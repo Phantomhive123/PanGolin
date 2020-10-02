@@ -1090,21 +1090,6 @@ PrefabInstance:
       propertyPath: gravityModifier
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7397047741349028147, guid: a2196972e7e68054d82f706642f0837d,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7397047741349028147, guid: a2196972e7e68054d82f706642f0837d,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7397047741349028147, guid: a2196972e7e68054d82f706642f0837d,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.0037829876
-      objectReference: {fileID: 0}
     - target: {fileID: 7397047741349028149, guid: a2196972e7e68054d82f706642f0837d,
         type: 3}
       propertyPath: m_BodyType
