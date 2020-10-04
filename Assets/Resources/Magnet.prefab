@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityModifier: 5
-  moveThreshold: 0.005
+  moveThreshold: 100
   targetVelocity: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
   totalHorizontalRays: 3
