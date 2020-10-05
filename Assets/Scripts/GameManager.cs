@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject gameWinPanel;
     public int currentLevel;
+    private InputField NameInput, PasswdInput, EmailInput;
+    private string UserName;
 
     private void Awake()
     {
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
     public void GameWin()
     {
         gameWinPanel.SetActive(true);
+        PostScore();
         GamePause();
     }
 
@@ -56,42 +61,132 @@ public class GameManager : MonoBehaviour
         GamePause();
     }
 
-    public void SaveCurrentLevel()
+    public void OnSave()
     {
-        Debug.Log("in click");
-        string SaveFileName = "level" + Convert.ToString(currentLevel)+".dat";
-        Debug.Log(SaveFileName);
+        //todo 获取文件名
+        string SaveFileName = "level" + Convert.ToString(currentLevel) + ".dat";
         FileStream fs = new FileStream(SaveFileName, FileMode.OpenOrCreate);
+
+        if (fs == null)
+        {
+            Debug.Log("fail to save file!");
+            return;
+        }
+
+        SaveCurrentLevel(fs);
+        return;
+    }
+
+    public void SaveCurrentLevel(FileStream fs)
+    {
         BinaryFormatter formatter = new BinaryFormatter();
         List<SaveObject> SaveContent = CreateObj.GetUserObjects();
         formatter.Serialize(fs, SaveContent.Count);
+        Debug.Log(SaveContent.Count);
 
         for (int i=0;i<SaveContent.Count;++i)
         {
             formatter.Serialize(fs, graph: SaveContent[i]);
         }
 
+       // formatter.Serialize(fs, currentLevel)
         fs.Flush();
         fs.Close();
+        OnGetUserScore();
     }
 
     public void LoadSaveFile()
-    {
-        Debug.Log("in load save file");
-        string SaveFileName = "level" + Convert.ToString(currentLevel) + ".dat";
+    { 
+        string SaveFileName = "level0.dat";
+        //todo 从文件名获取关卡
         Debug.Log("load file:" + SaveFileName);
-        FileStream fs = new FileStream(SaveFileName, FileMode.OpenOrCreate);
-        BinaryFormatter formatter = new BinaryFormatter();
+        PlayerPrefs.SetString("LoadFile", SaveFileName);
+        SceneManager.LoadScene(1);
+        
+    }
 
-        int count = (int)formatter.Deserialize(fs);
+    public void OnLogin()
+    {
+        NameInput = GameObject.Find("Canvas/GameLogin/username").GetComponent<InputField>();
+        PasswdInput = GameObject.Find("Canvas/GameLogin/password").GetComponent<InputField>();
+        UserName = NameInput.text;
+        string url = "http://81.71.17.48/user/login";
+        LoginRequest PostData =new LoginRequest(NameInput.text,PasswdInput.text);
+        StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, OnLoginCallBack));
+    }
 
-        for (int i=0;i<count;++i)
+    private void OnLoginCallBack(string RspDataString)
+    {
+        Debug.Log("recv msg:" + RspDataString);
+        var RspData = JsonUtility.FromJson<ServerRsponse<string>>(RspDataString);
+
+        if (RspData.Code != 0)
         {
-            SaveObject FileObject = (SaveObject)formatter.Deserialize(fs);
-            CreateObj.RenderSaveObject(FileObject.ObjType, new Vector3(FileObject.x, FileObject.y, 0));
+            Debug.Log("登录失败:" + RspData.Message);
+            return;
         }
 
-        fs.Close();
+        Debug.Log("登录成功!");
+    }
+
+   public void OnRegister()
+   {
+        NameInput = GameObject.Find("Canvas/GameLogin/username").GetComponent<InputField>();
+        PasswdInput = GameObject.Find("Canvas/GameLogin/password").GetComponent<InputField>();
+        EmailInput = GameObject.Find("Canvas/GameLogin/email").GetComponent<InputField>();
+        string url = "http://81.71.17.48/user/register"; 
+        RegisterRequest PostData = new RegisterRequest(NameInput.text, PasswdInput.text, EmailInput.text);
+        StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, OnRegisterCallback));
+    }
+
+    private void OnRegisterCallback(string RspDataString)
+    {
+        Debug.Log("recv msg:" + RspDataString);
+        var RspData = JsonUtility.FromJson<ServerRsponse<string>>(RspDataString);
+
+        if (RspData.Code != 0)
+        {
+            Debug.Log("注册失败:" + RspData.Message);
+            return;
+        }
+
+        Debug.Log("注册成功!");
+    }
+
+    public void PostScore()
+    { 
+        string url = "http://81.71.17.48:80/user/save-score";
+        SetScoreRequest PostData = new SetScoreRequest(UserName, currentLevel, Score());
+        StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST,null));
+    }
+
+    public void OnGetUserScore()
+    {
+        string url = "http://81.71.17.48:80/user/get-score";
+        GetScoreRequest PostData = new GetScoreRequest(UserName);
+        StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, GetUserScoreCallBack));
+    }
+
+    private void GetUserScoreCallBack(string RspDataString)
+    {
+        Debug.Log("recv msg:" + RspDataString);
+        var RspData = JsonUtility.FromJson<ServerRsponse<GetScoreRsp>>(RspDataString);
+
+        if (RspData.Code != 0)
+        {
+            Debug.Log("获取信息失败:" + RspData.Message);
+            return;
+        }
+
+        //Debug.Log(RspData.Data);
+
+        Debug.Log(RspData.Data.scores[0].score);
+    }
+
+    private int Score()
+    {
+        //todo
+        return 5;
     }
 
     public void Quit()
@@ -109,6 +204,43 @@ public class GameManager : MonoBehaviour
         Debug.Log(currentLevel + " " + SceneManager.sceneCount);
         if (currentLevel + 1 <= SceneManager.sceneCount)
             SceneManager.LoadScene(currentLevel + 1);
-        CreateObj.ClearSaveInfo();
+    }
+
+    private IEnumerator SendRequest(string url,string data,RequestType requestType,Action<string> CallBack)
+    {
+        UnityWebRequest WebReq;
+        if (requestType == RequestType.POST)
+        {
+            WebReq = UnityWebRequest.Put(url, data);
+            WebReq.method = UnityWebRequest.kHttpVerbPOST;
+            WebReq.SetRequestHeader("Content-Type", "application/json");
+            Debug.Log(data);
+        }
+        else if (requestType == RequestType.GET)
+        {
+            WebReq = UnityWebRequest.Get(url);
+        }
+        else
+        {
+            Debug.Log("request type error");
+            yield break;
+        }
+
+        yield return WebReq.SendWebRequest();
+
+        if (WebReq.isHttpError || WebReq.isNetworkError)
+        {
+            Debug.Log("http error:"+WebReq.error);
+            yield break;
+        }
+
+        if (CallBack == null)
+        {
+            Debug.Log("null callback");
+            yield break;
+        }
+
+        Debug.Log(WebReq.downloadHandler.text);
+        CallBack(WebReq.downloadHandler.text);
     }
 }

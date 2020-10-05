@@ -9,6 +9,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -34,15 +36,36 @@ public class CreateObj : MonoBehaviour
     [SerializeField]
     private GameObject[] previews;
     private static List<SaveObject> SaveObjectList;
-    private static GameObject[] objsCopy;
-    private static GameObject[] previewsCopy;
     private int currentIndex = -1;
 
     void Start()
     {
         SaveObjectList = new List<SaveObject>();
-        previewsCopy = previews;
-        objsCopy = objs;
+
+        if (PlayerPrefs.HasKey("LoadFile"))
+        {
+            string SaveFileName = PlayerPrefs.GetString("LoadFile");
+            FileStream fs = new FileStream(SaveFileName, FileMode.OpenOrCreate);
+
+            if (fs == null)
+            {
+                Debug.Log("load save file fail,file");
+                return;
+            }
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            int count = (int)formatter.Deserialize(fs);
+
+            for (int i = 0; i < count; ++i)
+            {
+                SaveObject FileObject = (SaveObject)formatter.Deserialize(fs);
+                RenderSaveObject(FileObject.ObjType, new Vector3(FileObject.x, FileObject.y, 0));
+            }
+
+            PlayerPrefs.DeleteKey("LoadFile");
+            fs.Close();
+        }
+  
     }
 
     // Update is called once per frame
@@ -78,11 +101,11 @@ public class CreateObj : MonoBehaviour
         }
     }
 
-    public static void RenderSaveObject(ElementType type, Vector3 pos)
+    private void RenderSaveObject(ElementType type, Vector3 pos)
     {
         int index = Convert.ToInt32(type);
-        previewsCopy[index].GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(pos);
-        Instantiate(objsCopy[index], pos, Quaternion.identity);
+        previews[index].GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(pos);
+        Instantiate(objs[index], pos, Quaternion.identity);
     }
 
     public static void ClearSaveInfo()
