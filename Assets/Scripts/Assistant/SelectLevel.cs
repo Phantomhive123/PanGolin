@@ -21,7 +21,7 @@ public class SelectLevel : MonoBehaviour
 
     public void NextLevel()
     {
-        if (currentChoose + 1 <= 6)
+        if (currentChoose + 1 <= 8)
         {
             currentChoose++;
             Vector3 Pos = levels.localPosition;

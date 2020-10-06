@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
 
     public void GameContinue()
     {
+        Magnet[] magnets = FindObjectsOfType<Magnet>();
+        foreach (Magnet magnet in magnets)
+            magnet.FindNextAim();
         Time.timeScale = 1;
     }
 
