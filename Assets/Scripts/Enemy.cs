@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.GetComponent<Fire>())
             Destroy(gameObject);
+        if (collision.GetComponent<Magnet>())
+            Destroy(gameObject);
         if (collision.GetComponent<PlayerMovement>())
         {
             GameManager.Instance.GameOver();
