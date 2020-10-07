@@ -6,7 +6,7 @@ public delegate void PlayerEvenetDelegate();
 
 public enum ElementType
 {
-    empty,
+    empty = -1,
     wood,
     stone,
     magnet,
