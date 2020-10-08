@@ -254,6 +254,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        Debug.Log(WebReq.downloadHandler.text);
         CallBack(WebReq.downloadHandler.text);
     }
 }

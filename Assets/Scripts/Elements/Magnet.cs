@@ -67,7 +67,7 @@ public class Magnet : BasicElement
 
     }
         
-    private void FindNextAim()
+    public void FindNextAim()
     {
         Stone[] stones = FindObjectsOfType<Stone>();
         foreach (Stone s in stones)
