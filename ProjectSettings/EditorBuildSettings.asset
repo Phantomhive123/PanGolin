@@ -11,4 +11,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FinalScenes/LevelSelection.unity
     guid: 9a85fe211b301764bb7b32ec00819d8b
+  - enabled: 1
+    path: Assets/FinalScenes/Level01.unity
+    guid: 5892a342a87e03c4ba3d915652f35a8c
+  - enabled: 1
+    path: Assets/FinalScenes/Level02.unity
+    guid: 8e772c8ba27539d4b92d82fe09cdb025
+  - enabled: 1
+    path: Assets/FinalScenes/Level03.unity
+    guid: ff25977c6c8951a41bda8ddf083765c5
+  - enabled: 1
+    path: Assets/FinalScenes/Level04.unity
+    guid: e4cd239a0b6a13f4b9cc8c4ed4a7c840
+  - enabled: 1
+    path: Assets/FinalScenes/Level05.unity
+    guid: ecee634e9e9c47945a0227800793818d
+  - enabled: 1
+    path: Assets/FinalScenes/Level06.unity
+    guid: 26c14e9d4e9cee3439fab72d05483648
+  - enabled: 1
+    path: Assets/FinalScenes/Level07.unity
+    guid: 5268c581cdf3a6b48952ed8e5812945b
+  - enabled: 1
+    path: Assets/FinalScenes/Level08.unity
+    guid: a633ef3c440428d4ebb1e0dc2ca9680c
   m_configObjects: {}

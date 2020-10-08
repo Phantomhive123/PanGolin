@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        NextLevel();
+        LoadLevel(1);
         Debug.Log("登录成功!");
     }
 
@@ -205,18 +205,20 @@ public class GameManager : MonoBehaviour
 
     public void RePlay()
     {
-        SceneManager.LoadScene(currentLevel);
+        SceneManager.LoadScene(currentLevel + 1);
     }
 
     public void NextLevel()
     {
-        if (currentLevel + 1 >= 0 && currentLevel + 1 <= SceneManager.sceneCount)
-            SceneManager.LoadScene(currentLevel + 1);
+        if (currentLevel + 2 >= 0 && currentLevel + 2 <= SceneManager.sceneCountInBuildSettings)
+            SceneManager.LoadScene(currentLevel + 2);
     }
 
     public void LoadLevel(int aimLevel)
     {
-        if (aimLevel <= SceneManager.sceneCount)
+        Debug.Log(aimLevel);
+        Debug.Log(SceneManager.sceneCountInBuildSettings);
+        if (aimLevel <= SceneManager.sceneCountInBuildSettings)
             SceneManager.LoadScene(aimLevel);
     }
 

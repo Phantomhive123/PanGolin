@@ -1325,12 +1325,12 @@ TextureImporter:
       name: four-seasons-tileset_37
       rect:
         serializedVersion: 2
-        x: 64
+        x: 65
         y: 192
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 14
+        height: 15
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5333}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1808,12 +1808,12 @@ TextureImporter:
       name: four-seasons-tileset_60
       rect:
         serializedVersion: 2
-        x: 112
+        x: 113
         y: 160
-        width: 16
+        width: 15
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5333, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2271,9 +2271,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 112
+        y: 113
         width: 16
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2292,9 +2292,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 112
+        y: 113
         width: 16
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2313,9 +2313,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 112
+        y: 113
         width: 16
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
