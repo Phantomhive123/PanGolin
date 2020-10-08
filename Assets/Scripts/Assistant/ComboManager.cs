@@ -19,11 +19,14 @@ public class ComboManager : MonoBehaviour
         set
         {
             _comboIndex = value;
+            if (_comboIndex > maxCombo)
+                maxCombo = _comboIndex;
             comboText.gameObject.SetActive(true);
             comboText.text = "Combo：" + _comboIndex + "!";
             ContinueCombo();
         }
     }
+    private int maxCombo = 0;
 
     public PlayerEvenetDelegate ContinueDelegate;
 
@@ -50,5 +53,10 @@ public class ComboManager : MonoBehaviour
         ContinueDelegate?.Invoke();
         _comboIndex = 0;
         comboText.gameObject.SetActive(false);
+    }
+
+    public int GetMaxCombo()
+    {
+        return maxCombo;
     }
 }

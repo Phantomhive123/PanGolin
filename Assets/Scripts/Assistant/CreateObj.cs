@@ -13,6 +13,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 [Serializable]
@@ -38,9 +39,20 @@ public class CreateObj : MonoBehaviour
     private static List<SaveObject> SaveObjectList;
     private int currentIndex = -1;
 
+    public int[] maxNums;
+    private List<int> currentNums;
+    public Text[] texts; 
+
     void Start()
     {
         SaveObjectList = new List<SaveObject>();
+        currentNums = new List<int>();
+        for (int i = 0; i < maxNums.Length; i++)
+        {
+            currentNums.Add(maxNums[i]);
+            texts[i].text = currentNums[i] + "";
+        }
+
 
         if (PlayerPrefs.HasKey("LoadFile"))
         {
@@ -91,6 +103,9 @@ public class CreateObj : MonoBehaviour
             {
                 if (currentIndex != -1 && currentIndex < previews.Length)
                 {
+                    if (currentNums[currentIndex] - 1 < 0) return;
+                    currentNums[currentIndex]--;
+                    texts[currentIndex].text = currentNums[currentIndex] + "";
                     Vector3 screenPos = previews[currentIndex].GetComponent<RectTransform>().position;
                     Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
                     if (!CheckGrid(worldPos)) return;
