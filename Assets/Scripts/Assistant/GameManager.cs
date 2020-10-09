@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     private string UserName;
 
     public bool needPause = true;
+    public RectTransform stars;
+    public AudioClip winAudio;
+    public AudioClip loseAudio;
 
     private void Awake()
     {
@@ -56,15 +59,20 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
-        gameWinPanel.SetActive(true);
-        PostScore();
         GamePause();
+        gameWinPanel.SetActive(true);
+        int score = Score();
+        for (int i = 0; i < score; i++)
+            stars.GetChild(i).gameObject.SetActive(true);    
+        PostScore();
+        AudioSource.PlayClipAtPoint(winAudio, Camera.main.transform.position);
     }
 
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
         GamePause();
+        AudioSource.PlayClipAtPoint(winAudio, Camera.main.transform.position);
     }
 
     public void OnSave()

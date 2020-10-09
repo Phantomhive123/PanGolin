@@ -4197,6 +4197,11 @@ PrefabInstance:
       propertyPath: note
       value: "\u6728\u6728\u751F\u706B\uFF1A\u63A8\u52A8\u6728\u5757\u4EA7\u751F\u78B0\u649E\u4F1A\u751F\u6210\u706B\u54E6~"
       objectReference: {fileID: 0}
+    - target: {fileID: 1704039794031680786, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d31d7f5e4a72e654a8e262631413eb6b, type: 3}
 --- !u!1001 &1597583738

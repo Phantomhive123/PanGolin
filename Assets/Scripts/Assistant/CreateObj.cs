@@ -60,6 +60,11 @@ public class CreateObj : MonoBehaviour
 
     void Start()
     {
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(gameObject);
+
         SaveObjectList = new List<SaveObject>();
         currentNums = new List<int>();
         for (int i = 0; i < maxNums.Length; i++)
