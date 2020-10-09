@@ -13,6 +13,10 @@ public class SelectLevel : MonoBehaviour
         if (currentChoose - 1 > 0)
         {
             currentChoose--;
+            if (currentChoose > 1)
+                levels.GetChild(currentChoose - 2).gameObject.SetActive(true);
+            if (currentChoose < 7)    
+                levels.GetChild(currentChoose + 1).gameObject.SetActive(false);
             Vector3 Pos = levels.localPosition;
             Pos.x = Pos.x + 500;
             levels.localPosition = Pos;
@@ -24,6 +28,10 @@ public class SelectLevel : MonoBehaviour
         if (currentChoose + 1 <= 8)
         {
             currentChoose++;
+            if (currentChoose < 8)
+                levels.GetChild(currentChoose).gameObject.SetActive(true);
+            if (currentChoose >= 3) 
+                levels.GetChild(currentChoose - 3).gameObject.SetActive(false);
             Vector3 Pos = levels.localPosition;
             Pos.x = Pos.x - 500;
             levels.localPosition = Pos;
