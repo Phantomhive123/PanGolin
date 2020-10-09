@@ -195,6 +195,79 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2196972e7e68054d82f706642f0837d, type: 3}
+--- !u!1 &316721787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316721788}
+  - component: {fileID: 316721790}
+  - component: {fileID: 316721789}
+  m_Layer: 0
+  m_Name: GuidTrigger (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &316721788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316721787}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.59, y: -0.46, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 218367772}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &316721789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316721787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d719f9964a5735498e3f73273dfdfa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  note: "\u4F46\u662F\u68EE\u6797\u8D44\u6E90\u662F\u6709\u9650\u7684\uFF0C\u4F7F\u7528\u8D44\u6E90\u683C\u4F1A\u6D88\u8017\u79EF\u5206\u54E6\uFF01"
+  panel: {fileID: 1448345189}
+  text: {fileID: 918502367}
+--- !u!61 &316721790
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316721787}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1001 &337696103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1517,7 +1590,7 @@ PrefabInstance:
     - target: {fileID: 285574895058678807, guid: d31d7f5e4a72e654a8e262631413eb6b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4327636852060652845, guid: d31d7f5e4a72e654a8e262631413eb6b,
         type: 3}
@@ -1534,6 +1607,31 @@ PrefabInstance:
         type: 3}
       propertyPath: maxNums.Array.data[1]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3433936800835596153, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704039794031680786, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_Text
+      value: "Combo\u662F\u4F60\u9AD8\u661F\u8FC7\u5173\u7684\u597D\u65B9\u6CD5\uFF01\n\u5DE7\u7528\u5730\u5F62\uFF0C\u5408\u7406\u6446\u653E\u8D44\u6E90\uFF0C\u53EF\u4EE5\u5B9E\u73B0\u4E0D\u4E2D\u65ADCombo\uFF0C\u4ECE\u800C\u83B7\u53D6\u66F4\u591A\u79EF\u5206\u5956\u52B1\uFF01\n\u8BF7\u653E\u7F6E\u4E00\u5757\u6728\u5934\u5728\u7B2C\u4E00\u5C42\u7684\u6728\u5934\u4E2D\uFF0C\u653E\u7F6E\u4E00\u5757\u77F3\u5934\u5728\u7B2C\u4E8C\u6392\u5DE6\u4FA7\u7684\u77F3\u5934\u53F3\u4FA7~\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 33
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d31d7f5e4a72e654a8e262631413eb6b, type: 3}
