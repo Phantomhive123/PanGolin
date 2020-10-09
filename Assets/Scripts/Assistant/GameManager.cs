@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private GameObject gameWinPanel, LogoPanel;
     public int currentLevel;
     private InputField NameInput, PasswdInput, EmailInput;
-    private string UserName;
+    private static string UserName;
 
     public bool needPause = true;
     public RectTransform stars;
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         if (instance == null)
             instance = this;
+        Debug.Log(PlayerPrefs.GetString("user"));
+        Debug.Log(UserName);
         LogoPanel = GameObject.Find("LogoPanel");
     }
 
@@ -138,6 +140,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        UserName = NameInput.text;
         PlayerPrefs.SetString("user", UserName);
         LoadLevel(1);
         Debug.Log("登录成功!");
@@ -172,8 +175,7 @@ public class GameManager : MonoBehaviour
     public void PostScore()
     { 
         string url = "http://81.71.17.48:80/user/save-score";
-        string UserName = PlayerPrefs.GetString("user");
-        SetScoreRequest PostData = new SetScoreRequest(UserName, currentLevel, Score());
+        SetScoreRequest PostData = new SetScoreRequest(PlayerPrefs.GetString("user"), currentLevel, Score());
         StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST,null));
     }
 
