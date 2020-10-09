@@ -245,8 +245,8 @@ TextureImporter:
       name: "\u80DC\u5229+\u63A8\u7BB1\u5B50 1_7"
       rect:
         serializedVersion: 2
-        x: 722
-        y: 438
+        x: 718
+        y: 442
         width: 128
         height: 128
       alignment: 0
@@ -413,8 +413,8 @@ TextureImporter:
       name: "\u80DC\u5229+\u63A8\u7BB1\u5B50 1_15"
       rect:
         serializedVersion: 2
-        x: 76
-        y: 442
+        x: 72
+        y: 446
         width: 128
         height: 128
       alignment: 0
@@ -434,8 +434,8 @@ TextureImporter:
       name: "\u80DC\u5229+\u63A8\u7BB1\u5B50 1_16"
       rect:
         serializedVersion: 2
-        x: 289
-        y: 438
+        x: 286
+        y: 442
         width: 128
         height: 128
       alignment: 0
@@ -476,8 +476,8 @@ TextureImporter:
       name: "\u80DC\u5229+\u63A8\u7BB1\u5B50 1_18"
       rect:
         serializedVersion: 2
-        x: 506
-        y: 437
+        x: 504
+        y: 443
         width: 128
         height: 128
       alignment: 0

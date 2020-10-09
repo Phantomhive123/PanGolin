@@ -33,10 +33,12 @@ public class PlayerMovement : BoxObj
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
             SetTrigger(false);
+            GetComponent<Animator>().Play(Animator.StringToHash("Stand"));
         }
         else if (collisionState.becameGroundedThisFrame)
         {
             SetTrigger(true);
+            GetComponent<Animator>().Play(Animator.StringToHash("Walk"));
         }
     }
 
@@ -47,6 +49,7 @@ public class PlayerMovement : BoxObj
         if (collision.GetComponent<Ignite>())
         {
             ChangeDirection();
+            //GetComponent<Animator>().Play(Animator.StringToHash("ChangeDir"));
             return;
         }
         BasicElement bs = collision.GetComponent<BasicElement>();
@@ -72,7 +75,7 @@ public class PlayerMovement : BoxObj
             //要不要删除委托？
             bePushedObj = null;
             currentSpeed = moveSpeed;
-            GetComponent<Animator>().Play(Animator.StringToHash("Walk"));
+            //GetComponent<Animator>().Play(Animator.StringToHash("Walk"));
         }
     }
 
@@ -83,7 +86,7 @@ public class PlayerMovement : BoxObj
             bePushedObj.Move(targetVelocity * Time.deltaTime);
     }
 
-    private void ChangeDirection()
+    public void ChangeDirection()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         dir *= -1;
