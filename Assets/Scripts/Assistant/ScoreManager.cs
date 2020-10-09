@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class ScoreManager : MonoBehaviour
 {
     private string UserName;
+    public RectTransform levels;
 
     void Start()
     {
@@ -33,7 +34,14 @@ public class ScoreManager : MonoBehaviour
 
         //todo 添加对各关星星的设置
         Debug.Log("get user score");
-        //Debug.Log(RspData.Data.scores[0].score);
+        foreach(ScoreItem s in RspData.Data.scores)
+        {
+            Transform level = levels.GetChild(s.level - 1);
+            for (int i = 1; i < s.score; i++)
+            {
+                level.Find("Star" + i).gameObject.SetActive(true);
+            }
+        }
     }
 
     private IEnumerator SendRequest(string url, string data, RequestType requestType, Action<string> CallBack)

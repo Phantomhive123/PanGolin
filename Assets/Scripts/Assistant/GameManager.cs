@@ -106,7 +106,6 @@ public class GameManager : MonoBehaviour
        // formatter.Serialize(fs, currentLevel)
         fs.Flush();
         fs.Close();
-        OnGetUserScore();
     }
 
     public void LoadSaveFile()
@@ -141,6 +140,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        PlayerPrefs.SetString("user", UserName);
         LoadLevel(1);
         Debug.Log("登录成功!");
     }
@@ -149,9 +149,8 @@ public class GameManager : MonoBehaviour
    {
         NameInput = GameObject.Find("SignUpPanel/Panel/UserName").GetComponent<InputField>();
         PasswdInput = GameObject.Find("SignUpPanel/Panel/Password").GetComponent<InputField>();
-        EmailInput = GameObject.Find("SignUpPanel/Panel/Email").GetComponent<InputField>();
         string url = "http://81.71.17.48/user/register"; 
-        RegisterRequest PostData = new RegisterRequest(NameInput.text, PasswdInput.text, EmailInput.text);
+        RegisterRequest PostData = new RegisterRequest(NameInput.text, PasswdInput.text);
         StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, OnRegisterCallback));
     }
 
@@ -177,29 +176,6 @@ public class GameManager : MonoBehaviour
         string url = "http://81.71.17.48:80/user/save-score";
         SetScoreRequest PostData = new SetScoreRequest(UserName, currentLevel, Score());
         StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST,null));
-    }
-
-    public void OnGetUserScore()
-    {
-        string url = "http://81.71.17.48:80/user/get-score";
-        GetScoreRequest PostData = new GetScoreRequest(UserName);
-        StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, GetUserScoreCallBack));
-    }
-
-    private void GetUserScoreCallBack(string RspDataString)
-    {
-        Debug.Log("recv msg:" + RspDataString);
-        var RspData = JsonUtility.FromJson<ServerRsponse<GetScoreRsp>>(RspDataString);
-
-        if (RspData.Code != 0)
-        {
-            Debug.Log("获取信息失败:" + RspData.Message);
-            return;
-        }
-
-        //Debug.Log(RspData.Data);
-
-        Debug.Log(RspData.Data.scores[0].score);
     }
 
     private int Score()
@@ -240,6 +216,7 @@ public class GameManager : MonoBehaviour
 
     public void RePlay()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(currentLevel + 1);
     }
 
@@ -251,10 +228,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int aimLevel)
     {
-        Debug.Log(aimLevel);
-        Debug.Log(SceneManager.sceneCountInBuildSettings);
         if (aimLevel <= SceneManager.sceneCountInBuildSettings)
+        {
+            Time.timeScale = 1;
             SceneManager.LoadScene(aimLevel);
+        }
     }
 
     private IEnumerator SendRequest(string url,string data,RequestType requestType,Action<string> CallBack)
