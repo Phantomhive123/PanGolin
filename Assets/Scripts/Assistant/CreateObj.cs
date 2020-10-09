@@ -32,16 +32,31 @@ public struct SaveObject
 
 public class CreateObj : MonoBehaviour
 {
+
+    private static CreateObj _instance;
     [SerializeField]
     private GameObject[] objs;
-    [SerializeField]
+    [SerializeField] 
     private GameObject[] previews;
     private static List<SaveObject> SaveObjectList;
     private int currentIndex = -1;
 
     public int[] maxNums;
     private List<int> currentNums;
-    public Text[] texts; 
+    public Text[] texts;
+
+    public static CreateObj Instance
+    {
+        get { return _instance; }
+    }
+    public int GetRemainWood()
+    {
+        return maxNums[0] - int.Parse(texts[0].text);
+    }
+    public int GetRemainStone()
+    {
+        return maxNums[1] - int.Parse(texts[1].text);
+    }
 
     void Start()
     {

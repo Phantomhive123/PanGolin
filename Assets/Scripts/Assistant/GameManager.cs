@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     {
         get { return instance; }
     }
-
     [SerializeField]
     private GameObject gameOverPanel;
     [SerializeField]
@@ -198,7 +197,32 @@ public class GameManager : MonoBehaviour
     private int Score()
     {
         //todo
-        return 5;
+        int MaxCombo = ComboManager.Instance.GetMaxCombo();
+        int RemainWood = CreateObj.Instance.GetRemainWood();
+        int RemainStone = CreateObj.Instance.GetRemainStone();
+        int FinalScore = 5 -  3 * (RemainWood + RemainStone)/2 + MaxCombo;
+        if (currentLevel == 1 || currentLevel == 2 || currentLevel == 3 || currentLevel == 5)
+            return 3;
+        else if (currentLevel == 6)
+        {
+            if (FinalScore < 4)
+                return 1;
+            else if (FinalScore < 5)
+                return 2;
+            else
+                return 3;
+        }
+        else if (currentLevel == 7)
+        {
+            if (FinalScore < 8)
+                return 1;
+            else if (FinalScore < 10)
+                return 2;
+            else
+                return 3;
+        }
+        else
+            return 3;
     }
 
     public void Quit()
