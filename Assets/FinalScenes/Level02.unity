@@ -409,6 +409,16 @@ PrefabInstance:
       propertyPath: currentLevel
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4313125740396850485, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: maxNums.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4313125740396850485, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: maxNums.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d31d7f5e4a72e654a8e262631413eb6b, type: 3}
 --- !u!1001 &333930089
