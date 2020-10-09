@@ -57,6 +57,7 @@ public class PlayerMovement : BoxObj
         } 
         else
         {
+            GetComponent<Animator>().Play(Animator.StringToHash("Push"));
             bePushedObj = bs;
             bs.StopDelegate += StopMove;
             bePushedObj.isInteracted = true;
@@ -71,6 +72,7 @@ public class PlayerMovement : BoxObj
             //要不要删除委托？
             bePushedObj = null;
             currentSpeed = moveSpeed;
+            GetComponent<Animator>().Play(Animator.StringToHash("Walk"));
         }
     }
 
@@ -90,12 +92,14 @@ public class PlayerMovement : BoxObj
     private void StopMove()
     {
         pause = true;
+        GetComponent<Animator>().Play(Animator.StringToHash("Stand"));
         SetTrigger(false);
     }
 
     private void ContinueMove()
     {
         pause = false;
+        GetComponent<Animator>().Play(Animator.StringToHash("Walk"));
         SetTrigger(true);
     }
 
