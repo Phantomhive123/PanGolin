@@ -37,7 +37,7 @@ public class ScoreManager : MonoBehaviour
         foreach(ScoreItem s in RspData.Data.scores)
         {
             Transform level = levels.GetChild(s.level - 1);
-            for (int i = 1; i < s.score; i++)
+            for (int i = 1; i <= s.score; i++)
             {
                 level.Find("Star" + i).gameObject.SetActive(true);
             }
