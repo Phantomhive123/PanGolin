@@ -198,7 +198,7 @@ MonoBehaviour:
   totalVerticalRays: 3
   skinWidth: 0.01
   moveSpeed: 5
-  pushSpeed: 3
+  pushSpeed: 1
   dir: {x: 1, y: 0}
 --- !u!82 &4382978784837616582
 AudioSource:
