@@ -1067,6 +1067,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4313125740580610491, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 66.1001
+      objectReference: {fileID: 0}
     - target: {fileID: 285574895058678807, guid: d31d7f5e4a72e654a8e262631413eb6b,
         type: 3}
       propertyPath: m_IsActive
@@ -1086,6 +1091,21 @@ PrefabInstance:
         type: 3}
       propertyPath: maxNums.Array.data[1]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704039794031680786, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u78C1\u529B\u7684\u5999\u7528\n\u5C0F\u4F19\u4F34\uFF01\n\u8BF7\u653E\u7F6E\u4E00\u5757\u77F3\u5934\u5230\u7B2C\u4E00\u6392\u77F3\u5934\u7684\u4E0A\u65B9~\n\u770B\u770B\u78C1\u94C1\u548C\u77F3\u5934\u4F1A\u53D1\u751F\u600E\u6837\u7684\u53D8\u5316\uFF01"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d31d7f5e4a72e654a8e262631413eb6b, type: 3}

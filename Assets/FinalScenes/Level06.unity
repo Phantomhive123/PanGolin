@@ -2201,6 +2201,21 @@ PrefabInstance:
       propertyPath: maxNums.Array.data[1]
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1704039794031680786, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_Text
+      value: "Combo\u8FD0\u7528\n\u8FD0\u7528\u795E\u5947\u7684Combo\u8FC7\u5173\u5427\uFF01"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d31d7f5e4a72e654a8e262631413eb6b, type: 3}
 --- !u!1001 &725956958
