@@ -122,8 +122,6 @@ public class GameManager : MonoBehaviour
     {
         NameInput = GameObject.Find("LogInPanel/Panel/UserName").GetComponent<InputField>();
         PasswdInput = GameObject.Find("LogInPanel/Panel/Password").GetComponent<InputField>();
-        UserName = NameInput.text;
-        Debug.Log(UserName);
         string url = "http://81.71.17.48/user/login";
         LoginRequest PostData =new LoginRequest(NameInput.text,PasswdInput.text);
         StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, OnLoginCallBack));
@@ -174,6 +172,7 @@ public class GameManager : MonoBehaviour
     public void PostScore()
     { 
         string url = "http://81.71.17.48:80/user/save-score";
+        string UserName = PlayerPrefs.GetString("user");
         SetScoreRequest PostData = new SetScoreRequest(UserName, currentLevel, Score());
         StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST,null));
     }
