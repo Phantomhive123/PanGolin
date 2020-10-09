@@ -153,3 +153,4 @@ MonoBehaviour:
   isInteracted: 0
   elementType: 1
   BurnDelayTime: 0.5
+  burnAudio: {fileID: 8300000, guid: 45cbdefc8c0398746bdc8b93a0769440, type: 3}

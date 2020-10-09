@@ -6,6 +6,7 @@ public class Wood : BasicElement
 {
     [SerializeField]
     private float BurnDelayTime = 0.5f;
+    public AudioClip burnAudio;
 
     private void Start()
     {
@@ -46,9 +47,10 @@ public class Wood : BasicElement
     private void Burn()
     {
         //应该播放动画哦
+        AudioSource.PlayClipAtPoint(burnAudio, transform.position);
         GameObject obj = Resources.Load<GameObject>("Fire");
         StopAllCoroutines();
-        InstantiateManager.Instance.CreateGameObj(obj, transform.position, transform.rotation, transform.parent);
+        InstantiateManager.Instance.CreateGameObj(obj, transform.position, transform.rotation, transform.parent);  
         Destroy(gameObject);
     }
 
