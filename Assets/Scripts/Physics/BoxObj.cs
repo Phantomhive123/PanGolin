@@ -121,8 +121,8 @@ public class BoxObj : MobileObj
                     another.BeHit(this);
                 }
 
-                if (Mathf.Abs(deltaMovement.y) < skinWidth + kSkinWidthFloatFudgeFactor)
-                    break;
+                //if (Mathf.Abs(deltaMovement.y) < skinWidth + kSkinWidthFloatFudgeFactor)
+                //    break;
             }
         }
     }

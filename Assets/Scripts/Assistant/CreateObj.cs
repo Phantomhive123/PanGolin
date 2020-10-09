@@ -104,12 +104,12 @@ public class CreateObj : MonoBehaviour
                 if (currentIndex != -1 && currentIndex < previews.Length)
                 {
                     if (currentNums[currentIndex] - 1 < 0) return;
-                    currentNums[currentIndex]--;
-                    texts[currentIndex].text = currentNums[currentIndex] + "";
                     Vector3 screenPos = previews[currentIndex].GetComponent<RectTransform>().position;
                     Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
                     if (!CheckGrid(worldPos)) return;
                     worldPos.z = 0;
+                    currentNums[currentIndex]--;
+                    texts[currentIndex].text = currentNums[currentIndex] + "";
                     SaveObject PlaceObject = new SaveObject((ElementType)currentIndex, worldPos);
                     SaveObjectList.Add(PlaceObject);
                     Instantiate(objs[currentIndex], worldPos, Quaternion.identity);
