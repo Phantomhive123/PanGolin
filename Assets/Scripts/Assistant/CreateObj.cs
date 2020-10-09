@@ -9,17 +9,96 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+
+[Serializable]
+public struct SaveObject
+{
+    public ElementType ObjType;
+    public float x;
+    public float y;
+    public SaveObject(ElementType pType,Vector3 pPos)
+    {
+        this.ObjType = pType;
+        this.x = pPos.x;
+        this.y = pPos.y;
+    }
+}
 
 public class CreateObj : MonoBehaviour
 {
+
+    private static CreateObj _instance;
     [SerializeField]
     private GameObject[] objs;
-    [SerializeField]
+    [SerializeField] 
     private GameObject[] previews;
-
+    private static List<SaveObject> SaveObjectList;
     private int currentIndex = -1;
+
+    public int[] maxNums;
+    private List<int> currentNums;
+    public Text[] texts;
+
+    public static CreateObj Instance
+    {
+        get { return _instance; }
+    }
+    public int GetRemainWood()
+    {
+        return maxNums[0] - int.Parse(texts[0].text);
+    }
+    public int GetRemainStone()
+    {
+        return maxNums[1] - int.Parse(texts[1].text);
+    }
+
+    void Start()
+    {
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(gameObject);
+
+        SaveObjectList = new List<SaveObject>();
+        currentNums = new List<int>();
+        for (int i = 0; i < maxNums.Length; i++)
+        {
+            currentNums.Add(maxNums[i]);
+            texts[i].text = currentNums[i] + "";
+        }
+
+
+        if (PlayerPrefs.HasKey("LoadFile"))
+        {
+            string SaveFileName = PlayerPrefs.GetString("LoadFile");
+            FileStream fs = new FileStream(SaveFileName, FileMode.OpenOrCreate);
+
+            if (fs == null)
+            {
+                Debug.Log("load save file fail,file");
+                return;
+            }
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            int count = (int)formatter.Deserialize(fs);
+
+            for (int i = 0; i < count; ++i)
+            {
+                SaveObject FileObject = (SaveObject)formatter.Deserialize(fs);
+                RenderSaveObject(FileObject.ObjType, new Vector3(FileObject.x, FileObject.y, 0));
+            }
+
+            PlayerPrefs.DeleteKey("LoadFile");
+            fs.Close();
+        }
+  
+    }
 
     // Update is called once per frame
     void Update()
@@ -44,14 +123,36 @@ public class CreateObj : MonoBehaviour
             {
                 if (currentIndex != -1 && currentIndex < previews.Length)
                 {
+                    if (currentNums[currentIndex] - 1 < 0) return;
                     Vector3 screenPos = previews[currentIndex].GetComponent<RectTransform>().position;
                     Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
                     if (!CheckGrid(worldPos)) return;
                     worldPos.z = 0;
+                    currentNums[currentIndex]--;
+                    texts[currentIndex].text = currentNums[currentIndex] + "";
+                    SaveObject PlaceObject = new SaveObject((ElementType)currentIndex, worldPos);
+                    SaveObjectList.Add(PlaceObject);
                     Instantiate(objs[currentIndex], worldPos, Quaternion.identity);
                 }
             }
         }
+    }
+
+    private void RenderSaveObject(ElementType type, Vector3 pos)
+    {
+        int index = Convert.ToInt32(type);
+        previews[index].GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(pos);
+        Instantiate(objs[index], pos, Quaternion.identity);
+    }
+
+    public static void ClearSaveInfo()
+    {
+        SaveObjectList.Clear();
+    }
+
+    public static List<SaveObject> GetUserObjects()
+    {
+        return SaveObjectList;
     }
 
     public void SetCurrentIndex(int index)

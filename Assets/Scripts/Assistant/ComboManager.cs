@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ComboManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class ComboManager : MonoBehaviour
     {
         get { return _instance; }
     }
+    public Text comboText;
 
     private int _comboIndex = 0;
     public int ComboIndex
@@ -16,11 +18,15 @@ public class ComboManager : MonoBehaviour
         get { return _comboIndex; }
         set
         {
-            ContinueCombo();
             _comboIndex = value;
-            Debug.Log("Combo:" + _comboIndex);
+            if (_comboIndex > maxCombo)
+                maxCombo = _comboIndex;
+            comboText.gameObject.SetActive(true);
+            comboText.text = "Combo：" + _comboIndex + "!";
+            ContinueCombo();
         }
     }
+    private int maxCombo = 0;
 
     public PlayerEvenetDelegate ContinueDelegate;
 
@@ -46,5 +52,11 @@ public class ComboManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ContinueDelegate?.Invoke();
         _comboIndex = 0;
+        comboText.gameObject.SetActive(false);
+    }
+
+    public int GetMaxCombo()
+    {
+        return maxCombo;
     }
 }

@@ -6,7 +6,7 @@ public delegate void PlayerEvenetDelegate();
 
 public enum ElementType
 {
-    empty,
+    empty = -1,
     wood,
     stone,
     magnet,
@@ -74,6 +74,8 @@ public class BasicElement : BoxObj
 
     public virtual void Hit(BasicElement another)
     {
+        AudioClip ac = Resources.Load<AudioClip>("Combo");
+        AudioSource.PlayClipAtPoint(ac, transform.position);
         CallStopDeletage();
         ComboManager.Instance.ComboIndex++;
     }
