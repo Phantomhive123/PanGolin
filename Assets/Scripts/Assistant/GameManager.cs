@@ -68,8 +68,9 @@ public class GameManager : MonoBehaviour
     public void OnSave()
     {
         //todo 获取文件名
-        string SaveFileName = "level" + Convert.ToString(currentLevel) + ".dat";
-        FileStream fs = new FileStream(SaveFileName, FileMode.OpenOrCreate);
+        string SaveFileName = "level" + Convert.ToString(currentLevel);
+        string FileName = Convert.ToString(currentLevel) + "-" + SaveFileName + ".dat";
+        FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate);
 
         if (fs == null)
         {
@@ -101,11 +102,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadSaveFile()
     { 
-        string SaveFileName = "level0.dat";
+        string SaveFileName = "1-level0.dat";
+        int level = Convert.ToInt32(SaveFileName.Split('-')[0]);
         //todo 从文件名获取关卡
         Debug.Log("load file:" + SaveFileName);
         PlayerPrefs.SetString("LoadFile", SaveFileName);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(level);
         
     }
 
@@ -114,6 +116,7 @@ public class GameManager : MonoBehaviour
         NameInput = GameObject.Find("LogInPanel/Panel/UserName").GetComponent<InputField>();
         PasswdInput = GameObject.Find("LogInPanel/Panel/Password").GetComponent<InputField>();
         UserName = NameInput.text;
+        PlayerPrefs.SetString("user",UserName);
         Debug.Log(UserName);
         string url = "http://81.71.17.48/user/login";
         LoginRequest PostData =new LoginRequest(NameInput.text,PasswdInput.text);
@@ -139,9 +142,8 @@ public class GameManager : MonoBehaviour
    {
         NameInput = GameObject.Find("SignUpPanel/Panel/UserName").GetComponent<InputField>();
         PasswdInput = GameObject.Find("SignUpPanel/Panel/Password").GetComponent<InputField>();
-        EmailInput = GameObject.Find("SignUpPanel/Panel/Email").GetComponent<InputField>();
         string url = "http://81.71.17.48/user/register"; 
-        RegisterRequest PostData = new RegisterRequest(NameInput.text, PasswdInput.text, EmailInput.text);
+        RegisterRequest PostData = new RegisterRequest(NameInput.text, PasswdInput.text);
         StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, OnRegisterCallback));
     }
 
@@ -194,7 +196,6 @@ public class GameManager : MonoBehaviour
 
     private int Score()
     {
-        //todo
         return 5;
     }
 

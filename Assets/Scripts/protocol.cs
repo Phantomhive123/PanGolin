@@ -1,11 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Generic;
 using System;
 
 [Serializable]
@@ -25,12 +18,10 @@ public class RegisterRequest
 {
     public string user_name;
     public string user_pass;
-    public string user_email;
-    public RegisterRequest(string pName, string pPassword, string pEmail)
+    public RegisterRequest(string pName, string pPassword)
     {
         this.user_name = pName;
         this.user_pass = pPassword;
-        this.user_email = pEmail;
     }
 }
 
