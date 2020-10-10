@@ -20,17 +20,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverPanel;
     [SerializeField]
-    private GameObject gameWinPanel, LogoPanel;
+    private GameObject gameWinPanel;
     public int currentLevel;
-    private InputField NameInput, PasswdInput, EmailInput;
-    private static string UserName;
 
     public bool needPause = true;
     public RectTransform stars;
     public AudioClip winAudio;
     public AudioClip loseAudio;
-    public TMP_Text text;
-    public GameObject commonPanel;
 
     private void Awake()
     {
@@ -44,9 +40,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         if (instance == null)
             instance = this;
-        Debug.Log(PlayerPrefs.GetString("user"));
-        Debug.Log(UserName);
-        LogoPanel = GameObject.Find("LogoPanel");
     }
 
     public void GameContinue()
@@ -81,107 +74,6 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         GamePause();
         AudioSource.PlayClipAtPoint(winAudio, Camera.main.transform.position);
-    }
-
-    public void OnSave()
-    {
-        //todo 获取文件名
-        string SaveFileName = "level" + Convert.ToString(currentLevel) + ".dat";
-        FileStream fs = new FileStream(SaveFileName, FileMode.OpenOrCreate);
-
-        if (fs == null)
-        {
-            Debug.Log("fail to save file!");
-            return;
-        }
-
-        SaveCurrentLevel(fs);
-        return;
-    }
-
-    public void SaveCurrentLevel(FileStream fs)
-    {
-        BinaryFormatter formatter = new BinaryFormatter();
-        List<SaveObject> SaveContent = CreateObj.GetUserObjects();
-        formatter.Serialize(fs, SaveContent.Count);
-        Debug.Log(SaveContent.Count);
-
-        for (int i=0;i<SaveContent.Count;++i)
-        {
-            formatter.Serialize(fs, graph: SaveContent[i]);
-        }
-
-       // formatter.Serialize(fs, currentLevel)
-        fs.Flush();
-        fs.Close();
-    }
-
-    public void LoadSaveFile()
-    { 
-        string SaveFileName = "level0.dat";
-        //todo 从文件名获取关卡
-        Debug.Log("load file:" + SaveFileName);
-        PlayerPrefs.SetString("LoadFile", SaveFileName);
-        SceneManager.LoadScene(1);
-        
-    }
-
-    public void OnLogin()
-    {
-        NameInput = GameObject.Find("LogInPanel/Panel/UserName").GetComponent<InputField>();
-        PasswdInput = GameObject.Find("LogInPanel/Panel/Password").GetComponent<InputField>();
-        string url = "http://81.71.17.48/user/login";
-        LoginRequest PostData =new LoginRequest(NameInput.text,PasswdInput.text);
-        StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, OnLoginCallBack));
-    }
-
-    private void OnLoginCallBack(string RspDataString)
-    {
-        Debug.Log("recv msg:" + RspDataString);
-        var RspData = JsonUtility.FromJson<ServerRsponse<string>>(RspDataString);
-
-        if (RspData.Code != 0)
-        {
-            Debug.Log("登录失败:" + RspData.Message);
-            commonPanel.SetActive(true);
-            text.text = "登陆失败";
-            return;
-        }
-
-        UserName = NameInput.text;
-        PlayerPrefs.SetString("user", UserName);
-        LoadLevel(1);
-        Debug.Log("登录成功!");
-    }
-
-   public void OnRegister()
-   {
-        NameInput = GameObject.Find("SignUpPanel/Panel/UserName").GetComponent<InputField>();
-        PasswdInput = GameObject.Find("SignUpPanel/Panel/Password").GetComponent<InputField>();
-        string url = "http://81.71.17.48/user/register"; 
-        RegisterRequest PostData = new RegisterRequest(NameInput.text, PasswdInput.text);
-        StartCoroutine(SendRequest(url, JsonUtility.ToJson(PostData), RequestType.POST, OnRegisterCallback));
-    }
-
-    private void OnRegisterCallback(string RspDataString)
-    {
-        Debug.Log("recv msg:" + RspDataString);
-        var RspData = JsonUtility.FromJson<ServerRsponse<string>>(RspDataString);
-
-        if (RspData.Code != 0)
-        {
-            Debug.Log("注册失败:" + RspData.Message);
-            commonPanel.SetActive(true);
-            text.text = "注册失败";
-            return;
-        }
-
-        GameObject SingUpPanel = GameObject.Find("SignUpPanel");
-        LogoPanel.SetActive(true);
-        SingUpPanel.SetActive(false);
-        Debug.Log("注册成功!");
-        commonPanel.SetActive(true);
-        text.text = "注册成功";
     }
 
     public void PostScore()
@@ -257,7 +149,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SendRequest(string url,string data,RequestType requestType,Action<string> CallBack)
+    public IEnumerator SendRequest(string url,string data,RequestType requestType,Action<string> CallBack)
     {
         UnityWebRequest WebReq;
         if (requestType == RequestType.POST)

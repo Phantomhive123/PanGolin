@@ -15,21 +15,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
-[Serializable]
-public struct SaveObject
-{
-    public ElementType ObjType;
-    public float x;
-    public float y;
-    public SaveObject(ElementType pType,Vector3 pPos)
-    {
-        this.ObjType = pType;
-        this.x = pPos.x;
-        this.y = pPos.y;
-    }
-}
-
 public class CreateObj : MonoBehaviour
 {
 
@@ -38,7 +23,6 @@ public class CreateObj : MonoBehaviour
     private GameObject[] objs;
     [SerializeField] 
     private GameObject[] previews;
-    private static List<SaveObject> SaveObjectList;
     private int currentIndex = -1;
 
     public int[] maxNums;
@@ -65,7 +49,6 @@ public class CreateObj : MonoBehaviour
         else
             Destroy(gameObject);
 
-        SaveObjectList = new List<SaveObject>();
         currentNums = new List<int>();
         for (int i = 0; i < maxNums.Length; i++)
         {
@@ -73,31 +56,6 @@ public class CreateObj : MonoBehaviour
             texts[i].text = currentNums[i] + "";
         }
 
-
-        if (PlayerPrefs.HasKey("LoadFile"))
-        {
-            string SaveFileName = PlayerPrefs.GetString("LoadFile");
-            FileStream fs = new FileStream(SaveFileName, FileMode.OpenOrCreate);
-
-            if (fs == null)
-            {
-                Debug.Log("load save file fail,file");
-                return;
-            }
-
-            BinaryFormatter formatter = new BinaryFormatter();
-            int count = (int)formatter.Deserialize(fs);
-
-            for (int i = 0; i < count; ++i)
-            {
-                SaveObject FileObject = (SaveObject)formatter.Deserialize(fs);
-                RenderSaveObject(FileObject.ObjType, new Vector3(FileObject.x, FileObject.y, 0));
-            }
-
-            PlayerPrefs.DeleteKey("LoadFile");
-            fs.Close();
-        }
-  
     }
 
     // Update is called once per frame
@@ -130,8 +88,6 @@ public class CreateObj : MonoBehaviour
                     worldPos.z = 0;
                     currentNums[currentIndex]--;
                     texts[currentIndex].text = currentNums[currentIndex] + "";
-                    SaveObject PlaceObject = new SaveObject((ElementType)currentIndex, worldPos);
-                    SaveObjectList.Add(PlaceObject);
                     Instantiate(objs[currentIndex], worldPos, Quaternion.identity);
                 }
             }
@@ -143,16 +99,6 @@ public class CreateObj : MonoBehaviour
         int index = Convert.ToInt32(type);
         previews[index].GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(pos);
         Instantiate(objs[index], pos, Quaternion.identity);
-    }
-
-    public static void ClearSaveInfo()
-    {
-        SaveObjectList.Clear();
-    }
-
-    public static List<SaveObject> GetUserObjects()
-    {
-        return SaveObjectList;
     }
 
     public void SetCurrentIndex(int index)
