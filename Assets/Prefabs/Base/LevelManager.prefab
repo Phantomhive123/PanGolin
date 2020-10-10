@@ -3341,7 +3341,7 @@ MonoBehaviour:
   currentLevel: 1
   needPause: 1
   stars: {fileID: 2496529557397830628}
-  winAudio: {fileID: 8300000, guid: 72f0a60aa06c0ba43bd941ffaf098c22, type: 3}
+  winAudio: {fileID: 8300000, guid: 53bc6d1b9d9f6294f8210c16b401b9aa, type: 3}
   loseAudio: {fileID: 8300000, guid: 85ebceb3f859fd346a00fa4197ab11b0, type: 3}
 --- !u!1 &4313125740161400810
 GameObject:
