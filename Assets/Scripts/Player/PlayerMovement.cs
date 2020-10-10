@@ -49,7 +49,9 @@ public class PlayerMovement : BoxObj
         if (collision.GetComponent<Ignite>())
         {
             ChangeDirection();
-            //GetComponent<Animator>().Play(Animator.StringToHash("ChangeDir"));
+            GetComponent<Animator>().Play(Animator.StringToHash("ChangeDir"));
+            
+            //ChangeDirection();
             return;
         }
         BasicElement bs = collision.GetComponent<BasicElement>();
