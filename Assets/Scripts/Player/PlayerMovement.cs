@@ -43,6 +43,7 @@ public class PlayerMovement : BoxObj
     protected override void LateUpdate()
     {
         base.LateUpdate();
+        if (pause) return;
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
             SetTrigger(false);
