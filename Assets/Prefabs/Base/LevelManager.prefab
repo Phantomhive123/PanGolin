@@ -3116,6 +3116,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1704039794031680786}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4313125739765032134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,6 +3380,8 @@ MonoBehaviour:
   stars: {fileID: 2496529557397830628}
   winAudio: {fileID: 8300000, guid: 72f0a60aa06c0ba43bd941ffaf098c22, type: 3}
   loseAudio: {fileID: 8300000, guid: 85ebceb3f859fd346a00fa4197ab11b0, type: 3}
+  text: {fileID: 0}
+  commonPanel: {fileID: 0}
 --- !u!1 &4313125740161400810
 GameObject:
   m_ObjectHideFlags: 0
