@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
+using TMPro;
 
 
 public class GameManager : MonoBehaviour
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour
     public RectTransform stars;
     public AudioClip winAudio;
     public AudioClip loseAudio;
+    public TMP_Text text;
+    public GameObject commonPanel;
 
     private void Awake()
     {
@@ -51,7 +54,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         Magnet[] magnets = FindObjectsOfType<Magnet>();
         foreach (Magnet mag in magnets)
-            mag.FindNextAim();
+        {
+            mag.begins = true;
+            //mag.FindNextAim();
+        }
     }
 
     public void GamePause()
@@ -137,6 +143,8 @@ public class GameManager : MonoBehaviour
         if (RspData.Code != 0)
         {
             Debug.Log("登录失败:" + RspData.Message);
+            commonPanel.SetActive(true);
+            text.text = "登陆失败";
             return;
         }
 
@@ -163,6 +171,8 @@ public class GameManager : MonoBehaviour
         if (RspData.Code != 0)
         {
             Debug.Log("注册失败:" + RspData.Message);
+            commonPanel.SetActive(true);
+            text.text = "注册失败";
             return;
         }
 
@@ -170,6 +180,8 @@ public class GameManager : MonoBehaviour
         LogoPanel.SetActive(true);
         SingUpPanel.SetActive(false);
         Debug.Log("注册成功!");
+        commonPanel.SetActive(true);
+        text.text = "注册成功";
     }
 
     public void PostScore()
