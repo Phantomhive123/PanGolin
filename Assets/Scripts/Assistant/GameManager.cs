@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
-        GamePause();
+        //GamePause();
+        PlayerMovement.Instance.GameOver(true);
         gameWinPanel.SetActive(true);
         int score = Score();
         for (int i = 0; i < score; i++)
@@ -71,8 +72,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        PlayerMovement.Instance.GameOver(false);
         gameOverPanel.SetActive(true);
-        GamePause();
+        //GamePause();
         AudioSource.PlayClipAtPoint(winAudio, Camera.main.transform.position);
     }
 

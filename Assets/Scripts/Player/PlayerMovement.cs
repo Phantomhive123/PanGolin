@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : BoxObj
 {
+    private static PlayerMovement _instance;
+    public static PlayerMovement Instance
+    {
+        get { return _instance; }
+    }
+
     [SerializeField]
     private float moveSpeed = 5f;
     [SerializeField]
@@ -13,12 +19,19 @@ public class PlayerMovement : BoxObj
 
     private float currentSpeed;
     private BasicElement bePushedObj = null;
-    static public bool pause = false;
+    public bool pause = false;
+    private Animator animator;
 
     private void Start()
     {
+        if (_instance == null) 
+            _instance = this;
+        else
+            Destroy(gameObject);
+
         currentSpeed = moveSpeed;
         ComboManager.Instance.ContinueDelegate += ContinueMove;
+        animator = GetComponent<Animator>();
     }
 
     protected override void Update()
@@ -33,12 +46,12 @@ public class PlayerMovement : BoxObj
         if (collisionState.wasGroundLastFrame && !isGrounded)
         {
             SetTrigger(false);
-            GetComponent<Animator>().Play(Animator.StringToHash("Stand"));
+            animator.Play(Animator.StringToHash("Stand"));
         }
         else if (collisionState.becameGroundedThisFrame)
         {
             SetTrigger(true);
-            GetComponent<Animator>().Play(Animator.StringToHash("Walk"));
+            animator.Play(Animator.StringToHash("Walk"));
         }
     }
 
@@ -49,7 +62,7 @@ public class PlayerMovement : BoxObj
         if (collision.GetComponent<Ignite>()||collision.GetComponent<Fire>())
         {
             ChangeDirection();
-            GetComponent<Animator>().Play(Animator.StringToHash("ChangeDir"));
+            animator.Play(Animator.StringToHash("ChangeDir"));
             
             //ChangeDirection();
             return;
@@ -62,7 +75,7 @@ public class PlayerMovement : BoxObj
         } 
         else
         {
-            GetComponent<Animator>().Play(Animator.StringToHash("Push"));
+            animator.Play(Animator.StringToHash("Push"));
             bePushedObj = bs;
             bs.StopDelegate += StopMove;
             bePushedObj.isInteracted = true;
@@ -97,14 +110,14 @@ public class PlayerMovement : BoxObj
     private void StopMove()
     {
         pause = true;
-        GetComponent<Animator>().Play(Animator.StringToHash("Stand"));
+        animator.Play(Animator.StringToHash("Stand"));
         SetTrigger(false);
     }
 
     private void ContinueMove()
     {
         pause = false;
-        GetComponent<Animator>().Play(Animator.StringToHash("Walk"));
+        animator.Play(Animator.StringToHash("Walk"));
         SetTrigger(true);
     }
 
@@ -116,5 +129,15 @@ public class PlayerMovement : BoxObj
             if (collider.isTrigger)
                 collider.enabled = enable;
         }
+    }
+
+    public void GameOver(bool win)
+    {
+        pause = true;
+        ComboManager.Instance.ContinueDelegate -= ContinueMove;
+        if (win)
+            animator.Play(Animator.StringToHash("Win"));
+        else
+            animator.Play(Animator.StringToHash("Die"));
     }
 }
