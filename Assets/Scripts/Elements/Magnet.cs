@@ -9,6 +9,8 @@ public class Magnet : BasicElement
     private float moveSpeed = 10f;
     private float startGravity = 5f;
 
+    public bool begins = false;
+
     private void Start()
     {
         elementType = ElementType.magnet;
@@ -57,6 +59,7 @@ public class Magnet : BasicElement
     protected override void Update()
     {
         base.Update();
+        if (!begins) return;
         if (aimStone)
         {
             Vector2 dir = aimStone.transform.position - transform.position;

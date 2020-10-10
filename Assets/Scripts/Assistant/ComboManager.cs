@@ -22,7 +22,7 @@ public class ComboManager : MonoBehaviour
             if (_comboIndex > maxCombo)
                 maxCombo = _comboIndex;
             comboText.gameObject.SetActive(true);
-            comboText.text = "Combo：" + _comboIndex + "!";
+            comboText.text = "Combo x " + _comboIndex;
             ContinueCombo();
         }
     }

@@ -77,7 +77,7 @@ public class ServerRsponse<T>
     public T Data;
 }
 
-enum RequestType
+public enum RequestType
 {
     GET,
     POST

@@ -46,7 +46,7 @@ public class PlayerMovement : BoxObj
     {
         if (!isGrounded) return;
         if (pause) return;
-        if (collision.GetComponent<Ignite>())
+        if (collision.GetComponent<Ignite>()||collision.GetComponent<Fire>())
         {
             ChangeDirection();
             GetComponent<Animator>().Play(Animator.StringToHash("ChangeDir"));

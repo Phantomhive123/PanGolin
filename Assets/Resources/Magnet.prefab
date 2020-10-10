@@ -154,6 +154,7 @@ MonoBehaviour:
   isInteracted: 0
   elementType: 3
   moveSpeed: 10
+  begins: 0
 --- !u!1 &6849607521248034636
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +211,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.25}
+  m_Size: {x: 0.26, y: 0.26}
   m_EdgeRadius: 0
 --- !u!114 &1239735569262508312
 MonoBehaviour:

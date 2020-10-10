@@ -7,9 +7,8 @@ public class Enemy : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Ignite>())
-            Destroy(gameObject);
-        if (collision.GetComponent<Magnet>())
+        Debug.Log(collision.gameObject.name);
+        if (collision.GetComponent<IgnitePlayer>())
             Destroy(gameObject);
         if (collision.GetComponent<PlayerMovement>())
         {
