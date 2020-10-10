@@ -1194,7 +1194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d719f9964a5735498e3f73273dfdfa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  note: "\u9047\u706B\u8F6C\u5411:\u706B\u4E0D\u4EC5\u80FD\u4F7F\u5C0F\u7532\u8F6C\u5411\uFF0C\u8FD8\u53EF\u4EE5\u70E7\u6B7B\u602A\u7269~
+  note: "\u9047\u706B\u8F6C\u5411:\u706B\u4E0D\u4EC5\u80FD\u4F7F\u5C0F\u7532\u8F6C\u5411\uFF0C\u8FD8\u53EF\u4EE5\u70E7\u6389\u6BD2\u8611\u83C7~
     \u4F46\u662F\u6389\u5728\u706B\u4E0A\u4E5F\u4F1A\u8BA9\u5C0F\u7532\u53D7\u4F24"
   panel: {fileID: 1216619164}
   text: {fileID: 1682310785}
@@ -4188,6 +4188,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 4.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4313125740275414503, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 66.1001
+      objectReference: {fileID: 0}
     - target: {fileID: 285574895058678807, guid: d31d7f5e4a72e654a8e262631413eb6b,
         type: 3}
       propertyPath: m_IsActive
@@ -4197,11 +4202,6 @@ PrefabInstance:
         type: 3}
       propertyPath: note
       value: "\u6728\u6728\u751F\u706B:\u63A8\u52A8\u6728\u5757\u4EA7\u751F\u78B0\u649E\u4F1A\u751F\u6210\u706B\u54E6~"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704039794031680786, guid: d31d7f5e4a72e654a8e262631413eb6b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4313125740396850485, guid: d31d7f5e4a72e654a8e262631413eb6b,
         type: 3}
@@ -4218,6 +4218,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3433936800835596153, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704039794031680786, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u68EE\u6797\u7684\u52A9\u529B\uFF1A\n\u5C0F\u4F19\u4F34\u4F60\u597D\uFF01\n\u4F60\u53EF\u4EE5\u8FD0\u7528\u53F3\u4FA7\u7684\u68EE\u6797\u8D44\u6E90\u6539\u53D8\u5730\u5F62~\n\u901A\u8FC7\u70B9\u51FB\u6765\u653E\u7F6E\u6728\u5934\u5728\u6211\u7684\u6B63\u524D\u65B9\uFF01\n\uFF08\u9003\u751F\u5F00\u59CB\u4E4B\u540E\u5C31\u65E0\u6CD5\u6539\u53D8\u4E86\u54E6\uFF09"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7990903287421940297, guid: d31d7f5e4a72e654a8e262631413eb6b,
         type: 3}
       propertyPath: m_Enabled
@@ -4247,21 +4267,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
-        type: 3}
-      propertyPath: m_Text
-      value: "\u68EE\u6797\u7684\u52A9\u529B\uFF1A\n\u5C0F\u4F19\u4F34\u4F60\u597D\uFF01\n\u4F60\u53EF\u4EE5\u8FD0\u7528\u53F3\u4FA7\u7684\u68EE\u6797\u8D44\u6E90\u6539\u53D8\u5730\u5F62~\n\u901A\u8FC7\u70B9\u51FB\u6765\u653E\u7F6E\u6728\u5934\u5728\u6211\u7684\u6B63\u524D\u65B9\uFF01\n\uFF08\u9003\u751F\u5F00\u59CB\u4E4B\u540E\u5C31\u65E0\u6CD5\u6539\u53D8\u4E86\u54E6\uFF09"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5786316470145809866, guid: d31d7f5e4a72e654a8e262631413eb6b,
-        type: 3}
-      propertyPath: m_FontData.m_LineSpacing
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3433936800835596153, guid: d31d7f5e4a72e654a8e262631413eb6b,
-        type: 3}
-      propertyPath: m_FontData.m_LineSpacing
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d31d7f5e4a72e654a8e262631413eb6b, type: 3}
